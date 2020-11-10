@@ -73,7 +73,7 @@ class Sign_up extends Component {
         />
         <input
           type="text"
-          name="lientId"
+          name="сlientId"
           placeholder="ClientId"
           value={this.state.clientId}
           onChange={this.handleChange}
