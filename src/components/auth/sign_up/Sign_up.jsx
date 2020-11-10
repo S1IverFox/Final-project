@@ -73,9 +73,9 @@ class Sign_up extends Component {
         />
         <input
           type="text"
-          name="сlientId"
+          name="clientId"
           placeholder="ClientId"
-          value={this.state.clientId}
+          value={this.state.lientId}
           onChange={this.handleChange}
         />
         <input type="submit" onClick={this.handleSubmit} />
