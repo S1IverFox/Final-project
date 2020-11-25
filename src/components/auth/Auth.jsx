@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Button from '../Buttons/Button.jsx';
-import { getProfileFetch, logoutUser } from '../auth/actions.jsx';
+import { getProfileFetch, logoutUser } from './authAct.jsx';
 import { connect } from 'react-redux';
 
 class Auth extends Component {
   componentDidMount = () => {
-    this.props.getProfileFetch();
+    this.props.getProfileFetch;
   };
 
   handleClick = (event) => {
@@ -23,18 +23,16 @@ class Auth extends Component {
           <Button
             btnText="sign_in"
             onClickBtn={
-              () =>
-                window.location.assign('http://localhost:8080/api/auth/sign_in')
-              // window.location.assign('http://84.201.129.203:8888/api/auth/sign_in')
+              () => window.location.assign('http://localhost:8080/auth/sign_in')
+              // window.location.assign('http://84.201.129.203:8888/auth/sign_in')
             }
           />
         </div>
         <Button
           btnText="sign_up"
           onClickBtn={
-            () =>
-              window.location.assign('http://localhost:8080/api/auth/sign_up')
-            // window.location.assign('http://84.201.129.203:8888/api/auth/sign_up')
+            () => window.location.assign('http://localhost:8080/auth/sign_up')
+            // window.location.assign('http://84.201.129.203:8888/auth/sign_up')
           }
         />
         <div>

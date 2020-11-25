@@ -7,7 +7,7 @@ function AddStatement() {
       <Button
         btnText="Заявить о краже"
         onClickBtn={() =>
-          window.location.assign('http://localhost:8080/api/report')
+          window.location.assign('http://localhost:8080/public/report')
         }
       />
     </div>

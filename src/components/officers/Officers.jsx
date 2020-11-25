@@ -1,73 +1,118 @@
 import React, { Component } from 'react';
+import { officerCreate } from './officerAct.jsx';
+import { connect } from 'react-redux';
+import Button from '../Buttons/Button.jsx';
+import OfficersList from './OfficersList.jsx';
 
-class Officers extends Component {
+class OfficersCreate extends Component {
   state = {
-    users: [
-      // { id: 1, email: 'Vasya', password: 123456 },
-      // { id: 2, email: 'Nastya', password: 198766 },
-      {
-        email: 'student@skillfactory.ru',
-        password: '123456',
-        clientId: 'a9432bbe73645c1825a4c426db59f47d',
-      },
-    ],
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    approved: false,
   };
 
-  // handlEmailChange = (e) => {
-  //   const email = e.target.value;
-  //   this.setState({ email: email });
-  // };
-  // handlPasswordChange = (e) => {
-  //   const password = e.target.value;
-  //   this.setState({ password: password });
-  // };
-
-  handleOfficerCreate = (e) => {
-    const users = this.state;
-    fetch('http://84.201.129.203:8888/api/officers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(users),
-    })
-      .then(() => {
-        alert('Пользователь создан');
-        // this.setState({ email: '', password: null });
-      })
-      .catch(() => console.log('ошибка'));
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
+
+  approved = () => {
+    this.setState({ approved: true });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.officerCreate(this.state);
+  };
+
+  handleSubmitList = (e) => {
+    e.preventDefault();
+    this.props.officersList(this.state);
+  };
+
   render() {
-    const { users } = this.state;
     return (
       <div>
-        <div>hfhj</div>
-        {/* <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              {user.email} {user.password}
-            </li>
-          ))}
-        </ul>
-        <input
-          type="text"
-          name="email"
-          placeholder="email"
-          onChange={this.handlEmailChange}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          onChange={this.handlPasswordChange}
-        />
-        <input
-          type="button"
-          onClick={this.handleOfficerCreate}
-          value="Create"
-        /> */}
+        <form onSubmit={this.handleSubmit}>
+          <label>Email</label>
+          <input
+            type="text"
+            name="email"
+            placeholder="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
+          <br />
+          <label>firstName</label>
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First name"
+            value={this.state.firstName}
+            onChange={this.handleChange}
+          />
+          <br />
+          <label>lastName</label>
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last name"
+            value={this.state.lastName}
+            onChange={this.handleChange}
+          />
+          <br />
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <br />
+
+          <label>approved</label>
+          <input
+            type="checkbox"
+            name="approved"
+            value={this.state.approved}
+            onChange={this.approved}
+          />
+          <br />
+
+          {/* <label>clientId</label>
+          <input
+            type="text"
+            name="clientId"
+            placeholder="clientId"
+            value={this.state.clientId}
+            onChange={this.handleChange}
+          />
+          <br /> */}
+
+          <input type="submit" />
+        </form>
+        <div>
+          <Button
+            btnText="Main screen"
+            onClickBtn={
+              () => window.location.assign('http://localhost:8080')
+              // window.location.assign('http://84.201.129.203:8888/auth/sign_in')
+            }
+          />
+        </div>
+        <div>
+          <OfficersList />
+        </div>
       </div>
     );
   }
 }
 
-export default Officers;
+const mapDispatchToProps = (dispatch) => ({
+  officerCreate: (userInfo) => dispatch(officerCreate(userInfo)),
+  // officersList: (userInfo) => dispatch(officersList(userInfo)),
+});
+
+export default connect(null, mapDispatchToProps)(OfficersCreate);

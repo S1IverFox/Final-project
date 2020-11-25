@@ -7,13 +7,14 @@ import { Provider } from 'react-redux';
 import Sign_in from './components/auth/sign_in/Sign_in.jsx';
 import Sign_up from './components/auth/sign_up/Sign_up.jsx';
 import Auth from './components/auth/Auth.jsx';
-import StatementsList from './components/public/StatementsList.jsx';
+import Report from './components/public/Report.jsx';
 import Main from './components/main/Main.jsx';
 import Cases from './components/cases/Cases.jsx';
-import Officers from './components/officers/Officers.jsx';
+// import Officers from './components/officers/Officers.jsx';
 import reducer from './components/auth/reducer.jsx';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import officer from './components/Officer/officer.jsx';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -23,12 +24,13 @@ function App() {
       <div className="main">
         <Switch>
           <Route path="/" component={Main} exact={true} />
-          <Route path="/api/report" component={StatementsList} exact={true} />
-          <Route path="/api/auth/sign_in" component={Sign_in} exact={true} />
-          <Route path="/api/auth/sign_up" component={Sign_up} exact={true} />
-          <Route path="/api/auth" component={Auth} exact={true} />
-          <Route path="/api/public/cases" component={Cases} exact={true} />
-          <Route path="/api/officers" component={Officers} exact={true} />
+          <Route path="/public/report" component={Report} exact={true} />
+          <Route path="/auth/sign_in" component={Sign_in} exact={true} />
+          <Route path="/auth/sign_up" component={Sign_up} exact={true} />
+          <Route path="/auth" component={Auth} exact={true} />
+          <Route path="/cases" component={Cases} exact={true} />
+          {/* <Route path="/officers" component={Officers} exact={true} /> */}
+          <Route path="/officers" component={officer} exact={true} />
         </Switch>
       </div>
     </div>

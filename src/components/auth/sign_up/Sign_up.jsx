@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userPost } from '../actions.jsx';
+import { userPost } from '../authAct.jsx';
 
 class Sign_up extends Component {
   state = {
@@ -11,13 +11,10 @@ class Sign_up extends Component {
     lastName: '',
     clientId: '',
   };
+
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  // handlPasswordChange = (e) => {
-  //   const password = e.target.value;
-  //   this.setState({ password });
-  // };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -27,59 +24,64 @@ class Sign_up extends Component {
   render() {
     return (
       <div>
-        {/* <form onSubmit={this.handleSubmit}> */}
-        <div>Sign up</div>
-        {/* <ul>
-          {statements.map((statement) => (
-            <li key={statement.id}>
-              {statement.email} {statement.password}
-            </li>
-          ))}
-        </ul> */}
-        <input
-          type="text"
-          name="email"
-          placeholder="email"
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <input
-          type="password"
-          name="repassword"
-          placeholder="repassword"
-          value={this.state.repassword}
-          onChange={this.handleChange}
-        />
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First name"
-          value={this.state.firstName}
-          onChange={this.handleChange}
-        />
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last name"
-          value={this.state.lastName}
-          onChange={this.handleChange}
-        />
-        <input
-          type="text"
-          name="clientId"
-          placeholder="ClientId"
-          value={this.state.lientId}
-          onChange={this.handleChange}
-        />
-        <input type="submit" onClick={this.handleSubmit} />
-        {/* </form> */}
+        <form onSubmit={this.handleSubmit}>
+          <div>Sign up</div>
+          <input
+            type="text"
+            name="email"
+            placeholder="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+          <input
+            type="password"
+            name="repassword"
+            placeholder="repassword"
+            value={this.state.repassword}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First name"
+            value={this.state.firstName}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last name"
+            value={this.state.lastName}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+          <input
+            type="text"
+            name="clientId"
+            placeholder="ClientId"
+            value={this.state.lientId}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+          <input type="submit" />
+        </form>
       </div>
     );
   }

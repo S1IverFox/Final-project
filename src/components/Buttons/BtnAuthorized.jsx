@@ -7,7 +7,7 @@ function Authorized() {
       <Button
         btnText="Войти"
         onClickBtn={
-          () => window.location.assign('http://localhost:8080/api/auth')
+          () => window.location.assign('http://localhost:8080/auth')
           // window.location.assign('http://localhost:8080/api/auth')
         }
       />

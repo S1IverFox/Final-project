@@ -6,9 +6,7 @@ function BtnCases() {
     <div>
       <Button
         btnText="Сообщения о кражах"
-        onClickBtn={() =>
-          window.location.assign('http://localhost:8080/api/public/cases')
-        }
+        onClickBtn={() => window.location.assign('http://localhost:8080/cases')}
       />
     </div>
   );
