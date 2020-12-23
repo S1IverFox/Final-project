@@ -10,11 +10,10 @@ import Auth from './components/auth/Auth.jsx';
 import Report from './components/public/Report.jsx';
 import Main from './components/main/Main.jsx';
 import Cases from './components/cases/Cases.jsx';
-// import Officers from './components/officers/Officers.jsx';
 import reducer from './components/auth/reducer.jsx';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import officer from './components/Officer/officer.jsx';
+import Officer from './components/Officer/Officer.jsx';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -29,8 +28,7 @@ function App() {
           <Route path="/auth/sign_up" component={Sign_up} exact={true} />
           <Route path="/auth" component={Auth} exact={true} />
           <Route path="/cases" component={Cases} exact={true} />
-          {/* <Route path="/officers" component={Officers} exact={true} /> */}
-          <Route path="/officers" component={officer} exact={true} />
+          <Route path="/officers" component={Officer} exact={true} />
         </Switch>
       </div>
     </div>

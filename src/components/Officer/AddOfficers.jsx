@@ -9,10 +9,10 @@ class AddOf extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const token = localStorage.token;
+    // const token = localStorage.token;
 
-    // const token =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
     fetch('http://84.201.129.203:8888/api/officers', {
       method: 'POST',
       headers: {
@@ -25,18 +25,13 @@ class AddOf extends Component {
         firstName: e.target.firstName.value,
         lastName: e.target.lastName.value,
         password: e.target.password.value,
-        approved: e.target.approved.value,
+        approved: e.target.approved,
       }),
     })
       .then((response) => response.json())
-      .then(
-        (result) => {
-          alert('seccses');
-        },
-        (error) => {
-          alert('faild');
-        }
-      );
+      .then(() => {
+        alert('succses');
+      });
   }
 
   render() {
@@ -93,13 +88,11 @@ class AddOf extends Component {
                   />
                 </Form.Group>
                 <Form.Group controlId="approved">
-                  <Form.Label>approved</Form.Label>
-                  <Form.Control
-                    type="checkbox"
-                    name="approved"
-                    value={true}
-                    onChange={this.approved}
-                  />
+                  <Form.Label>Approved</Form.Label>
+                  <select name="approved">
+                    <option>false</option>
+                    <option>true</option>
+                  </select>
                 </Form.Group>
 
                 <Form.Group>

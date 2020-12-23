@@ -14,7 +14,6 @@ export const userPost = (state) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
-          //Тут прописываем логику
           alert('Данный логин уже занят');
         } else {
           localStorage.setItem('token', data.token);
@@ -37,7 +36,6 @@ export const userLogin = (state) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
-          //тут ваша логика
         } else {
           localStorage.setItem('token', data.token);
           dispatch(loginUser(data.state));

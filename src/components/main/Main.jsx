@@ -8,7 +8,7 @@ function Main() {
   return (
     <div>
       <div className="main">
-        <p>Hello</p>
+        <h3>Hello</h3>
         <Authirezed />
         <AddStatement />
         <BtnCases />

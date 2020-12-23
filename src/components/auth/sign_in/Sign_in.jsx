@@ -90,10 +90,7 @@ class Sign_in extends Component {
         <div>
           <Button
             btnText="Main screen"
-            onClickBtn={
-              () => window.location.assign('http://localhost:8080')
-              // window.location.assign('http://84.201.129.203:8888/auth/sign_in')
-            }
+            onClickBtn={() => window.location.assign('http://localhost:8080')}
           />
         </div>
       </div>
