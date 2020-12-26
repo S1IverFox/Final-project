@@ -14,6 +14,7 @@ class Cases extends Component {
       editModalShow: false,
       infoModalShow: false,
     };
+    this.refreshList = this.refreshList.bind(this);
   }
 
   componentDidMount() {
@@ -36,10 +37,10 @@ class Cases extends Component {
       });
   }
 
-  deleteOfficer(casesid) {
+  deleteCase(casesid) {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-    if (window.confirm('Are you sure?')) {
+    if (confirm('Are you sure?')) {
       fetch('http://84.201.129.203:8888/api/cases/' + casesid, {
         method: 'DELETE',
         headers: {
@@ -47,13 +48,29 @@ class Cases extends Component {
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      });
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert('succsess');
+            this.refreshList();
+          } else {
+            alert('can not delete case with id:' + officerid);
+          }
+        })
+        .catch((err) => console.log(err));
     }
   }
 
-  componentDidUpdate() {
-    if (this.casess == this.setState) {
-      this.refreshList();
+  renderStatus(status) {
+    switch (status) {
+      case 'new':
+        return 'New';
+      case 'in_progress':
+        return 'In progress';
+      case 'done':
+        return 'Done';
+      default:
+        return 'Unknown status';
     }
   }
 
@@ -85,42 +102,30 @@ class Cases extends Component {
             </tr>
           </thead>
           <tbody>
-            {casess.map((cases) => (
-              <tr key={cases._id}>
-                <td>{cases.licenseNumber}</td>
-                <td>{cases.ownerFullName}</td>
-                <td>{cases.status}</td>
+            {casess.map((caseItem) => (
+              <tr key={caseItem._id}>
+                <td>{caseItem.licenseNumber}</td>
+                <td>{caseItem.ownerFullName}</td>
+                <td>{this.renderStatus(caseItem.status)}</td>
                 <td>
                   <ButtonToolbar>
                     <Button
                       onClick={() =>
                         this.setState({
                           editModalShow: true,
-                          casesid: cases._id,
-                          casesownerfullname: cases.ownerFullName,
-                          caseslicensenumber: cases.licenseNumber,
-                          casescolor: cases.color,
-                          casescreatedat: cases.createdAt,
-                          casesstatus: cases.status,
+                          casesid: caseItem._id,
+                          casesownerfullname: caseItem.ownerFullName,
+                          caseslicensenumber: caseItem.licenseNumber,
+                          casescolor: caseItem.color,
+                          casescreatedat: caseItem.createdAt,
+                          casesstatus: caseItem.status,
                         })
                       }
                     >
                       Edit
                     </Button>
 
-                    <EditCases
-                      show={this.state.editModalShow}
-                      onHide={editModalClose}
-                      casesid={casesid}
-                      caseslicensenumber={caseslicensenumber}
-                      casesownerfullname={casesownerfullname}
-                      casescolor={casescolor}
-                      casescreatedat={casescreatedat}
-                      casesstatus={casesstatus}
-                      casesresolution={casesresolution}
-                    />
-
-                    <Button onClick={() => this.deleteOfficer(cases._id)}>
+                    <Button onClick={() => this.deleteCase(caseItem._id)}>
                       Delete
                     </Button>
 
@@ -128,29 +133,18 @@ class Cases extends Component {
                       onClick={() =>
                         this.setState({
                           infoModalShow: true,
-                          casesid: cases._id,
-                          casesownerfullname: cases.ownerFullName,
-                          caseslicensenumber: cases.licenseNumber,
-                          casescolor: cases.color,
-                          casescreatedat: cases.createdAt,
-                          casesstatus: cases.status,
-                          casesresolution: cases.resolution,
+                          casesid: caseItem._id,
+                          casesownerfullname: caseItem.ownerFullName,
+                          caseslicensenumber: caseItem.licenseNumber,
+                          casescolor: caseItem.color,
+                          casescreatedat: caseItem.createdAt,
+                          casesstatus: caseItem.status,
+                          casesresolution: caseItem.resolution,
                         })
                       }
                     >
                       Info
                     </Button>
-                    <Info
-                      show={this.state.infoModalShow}
-                      onHide={infoModalClose}
-                      casesid={casesid}
-                      caseslicensenumber={caseslicensenumber}
-                      casesownerfullname={casesownerfullname}
-                      casescolor={casescolor}
-                      casescreatedat={casescreatedat}
-                      casesstatus={casesstatus}
-                      casesresolution={casesresolution}
-                    />
                   </ButtonToolbar>
                 </td>
               </tr>
@@ -161,8 +155,35 @@ class Cases extends Component {
           <Button onClick={() => this.setState({ addModalShow: true })}>
             Add case
           </Button>
-          <AddCases show={this.state.addModalShow} onHide={addModalClose} />
         </ButtonToolbar>
+        <AddCases
+          show={this.state.addModalShow}
+          refresh={this.refreshList}
+          onHide={addModalClose}
+        />
+        <EditCases
+          show={this.state.editModalShow}
+          onHide={editModalClose}
+          casesid={casesid}
+          caseslicensenumber={caseslicensenumber}
+          casesownerfullname={casesownerfullname}
+          casescolor={casescolor}
+          casescreatedat={casescreatedat}
+          casesstatus={casesstatus}
+          casesresolution={casesresolution}
+          refresh={this.refreshList}
+        />
+        <Info
+          show={this.state.infoModalShow}
+          onHide={infoModalClose}
+          casesid={casesid}
+          caseslicensenumber={caseslicensenumber}
+          casesownerfullname={casesownerfullname}
+          casescolor={casescolor}
+          casescreatedat={casescreatedat}
+          casesstatus={casesstatus}
+          casesresolution={casesresolution}
+        />
       </div>
     );
   }

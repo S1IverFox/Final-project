@@ -24,11 +24,12 @@ class EditOffecer extends Component {
         firstName: e.target.firstName.value,
         lastName: e.target.lastName.value,
         password: e.target.password.value,
-        approved: e.target.approved.value,
+        approved: e.target.approved.checked,
       }),
     })
       .then((response) => response.json())
       .then(() => {
+        this.props.refresh();
         alert('succses');
       });
   }
@@ -36,7 +37,8 @@ class EditOffecer extends Component {
   render() {
     return (
       <Modal
-        {...this.props}
+        show={this.props.show}
+        onHide={this.props.onHide}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -92,10 +94,11 @@ class EditOffecer extends Component {
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Approved</Form.Label>
-                  <select name="approved">
-                    <option>false</option>
-                    <option>true</option>
-                  </select>
+                  <input
+                    name="approved"
+                    type="checkbox"
+                    defaultChecked={this.props.officerapproved}
+                  />
                 </Form.Group>
 
                 <Form.Group>

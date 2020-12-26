@@ -5,6 +5,7 @@ import { Modal, Button, Row, Form, Col } from 'react-bootstrap';
 class AddOf extends Component {
   constructor(props) {
     super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
@@ -25,11 +26,12 @@ class AddOf extends Component {
         firstName: e.target.firstName.value,
         lastName: e.target.lastName.value,
         password: e.target.password.value,
-        approved: e.target.approved.value,
+        approved: e.target.approved.checked,
       }),
     })
       .then((response) => response.json())
       .then(() => {
+        this.props.refresh();
         alert('succses');
       });
   }
@@ -37,7 +39,8 @@ class AddOf extends Component {
   render() {
     return (
       <Modal
-        {...this.props}
+        show={this.props.show}
+        onHide={this.props.onHide}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -89,10 +92,11 @@ class AddOf extends Component {
                 </Form.Group>
                 <Form.Group controlId="approved">
                   <Form.Label>Approved</Form.Label>
-                  <select name="approved">
-                    <option value="false">false</option>
-                    <option value="true">true</option>
-                  </select>
+                  <input
+                    name="approved"
+                    type="checkbox"
+                    defaultChecked={this.props.officerapproved}
+                  />
                 </Form.Group>
 
                 <Form.Group>

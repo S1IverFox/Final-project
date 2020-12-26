@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
-import { ButtonToolbar, Button } from 'react-bootstrap';
+import { ButtonToolbar, Button, Form } from 'react-bootstrap';
 import AddOf from './AddOfficers.jsx';
 import EditOfficers from './EditOfficers.jsx';
 import Info from './InfoOfficers.jsx';
@@ -14,6 +14,7 @@ class Officer extends Component {
       editModalShow: false,
       infoModalShow: false,
     };
+    this.refreshList = this.refreshList.bind(this);
   }
 
   componentDidMount() {
@@ -39,7 +40,7 @@ class Officer extends Component {
   deleteOfficer(officerid) {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-    if (window.confirm('Are you sure?')) {
+    if (confirm('Are you sure?')) {
       fetch('http://84.201.129.203:8888/api/officers/' + officerid, {
         method: 'DELETE',
         headers: {
@@ -47,14 +48,39 @@ class Officer extends Component {
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      });
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert('succsess');
+            this.refreshList();
+          } else {
+            alert('can not delete officer with id:' + officerid);
+          }
+        })
+        .catch((err) => console.log(err));
     }
   }
 
-  componentDidUpdate() {
-    if (this.officers == this.setState) {
-      this.refreshList();
-    }
+  updateApproveStatus(officer) {
+    const officerid = officer._id;
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
+    fetch('http://84.201.129.203:8888/api/officers/' + officerid, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        approved: !officer.approved,
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        this.refreshList();
+        alert('succses');
+      });
   }
 
   render() {
@@ -70,6 +96,36 @@ class Officer extends Component {
     let addModalClose = () => this.setState({ addModalShow: false });
     let editModalClose = () => this.setState({ editModalShow: false });
     let infoModalClose = () => this.setState({ infoModalShow: false });
+    console.log(officerid);
+    console.log(officerapproved);
+    // let approveButton;
+    // if (officerapproved == false) {
+    //   approveButton = (
+    //     <Button
+    //       onClick={() =>
+    //         this.setState({
+    //           officerid: officerid,
+    //           officerapproved: true,
+    //         })
+    //       }
+    //     >
+    //       Одобрить
+    //     </Button>
+    //   );
+    // } else {
+    //   approveButton = (
+    //     <Button
+    //       onClick={() =>
+    //         this.setState({
+    //           officerid: officerid,
+    //           officerapproved: false,
+    //         })
+    //       }
+    //     >
+    //       Одобрено
+    //     </Button>
+    //   );
+    // }
 
     return (
       <div>
@@ -79,6 +135,8 @@ class Officer extends Component {
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
+              <th>Approved</th>
+              <th></th>
               <th>Option</th>
             </tr>
           </thead>
@@ -88,9 +146,27 @@ class Officer extends Component {
                 <td>{officer.firstName}</td>
                 <td>{officer.lastName}</td>
                 <td>
+                  <input
+                    type="checkbox"
+                    checked={officer.approved}
+                    disabled
+                  ></input>
+                </td>
+                <td>
+                  {officer.approved ? (
+                    <Button onClick={() => this.updateApproveStatus(officer)}>
+                      Unapprove
+                    </Button>
+                  ) : (
+                    <Button onClick={() => this.updateApproveStatus(officer)}>
+                      Approve
+                    </Button>
+                  )}
+                </td>
+                <td>
                   <ButtonToolbar>
                     <Button
-                      onClick={() =>
+                      onClick={() => {
                         this.setState({
                           editModalShow: true,
                           officerid: officer._id,
@@ -99,22 +175,11 @@ class Officer extends Component {
                           officerlastname: officer.lastName,
                           officerpassword: officer.password,
                           officerapproved: officer.approved,
-                        })
-                      }
+                        });
+                      }}
                     >
                       Edit
                     </Button>
-
-                    <EditOfficers
-                      show={this.state.editModalShow}
-                      onHide={editModalClose}
-                      officerid={officerid}
-                      officeremail={officeremail}
-                      officerfirstname={officerfirstname}
-                      officerlastname={officerlastname}
-                      officerpassword={officerpassword}
-                      officerapproved={officerapproved}
-                    />
 
                     <Button onClick={() => this.deleteOfficer(officer._id)}>
                       Delete
@@ -135,15 +200,6 @@ class Officer extends Component {
                     >
                       Info
                     </Button>
-                    <Info
-                      show={this.state.infoModalShow}
-                      onHide={infoModalClose}
-                      officerid={officerid}
-                      officeremail={officeremail}
-                      officerfirstname={officerfirstname}
-                      officerlastname={officerlastname}
-                      // officerapproved={officerapproved}
-                    />
                   </ButtonToolbar>
                 </td>
               </tr>
@@ -154,8 +210,34 @@ class Officer extends Component {
           <Button onClick={() => this.setState({ addModalShow: true })}>
             Add officer
           </Button>
-          <AddOf show={this.state.addModalShow} onHide={addModalClose} />
         </ButtonToolbar>
+        <AddOf
+          show={this.state.addModalShow}
+          onHide={addModalClose}
+          refresh={this.refreshList}
+        />
+        <Info
+          show={this.state.infoModalShow}
+          onHide={infoModalClose}
+          officerid={officerid}
+          officeremail={officeremail}
+          officerfirstname={officerfirstname}
+          officerlastname={officerlastname}
+          officerpassword={officerpassword}
+          officerapproved={officerapproved}
+          refresh={this.refreshList}
+        />
+        <EditOfficers
+          show={this.state.editModalShow}
+          onHide={editModalClose}
+          officerid={officerid}
+          officeremail={officeremail}
+          officerfirstname={officerfirstname}
+          officerlastname={officerlastname}
+          officerpassword={officerpassword}
+          officerapproved={officerapproved}
+          refresh={this.refreshList}
+        />
       </div>
     );
   }

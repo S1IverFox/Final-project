@@ -5,6 +5,7 @@ import { Modal, Button, Row, Form, Col } from 'react-bootstrap';
 class AddCases extends Component {
   constructor(props) {
     super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
@@ -25,12 +26,12 @@ class AddCases extends Component {
         color: e.target.color.value,
         ownerFullName: e.target.ownerFullName.value,
         createdAt: e.target.createdAt.value,
-        status: e.target.status.value,
-        // approved: e.target.approved.value,
+        status: 'new',
       }),
     })
       .then((response) => response.json())
       .then(() => {
+        this.props.refresh();
         alert('succses');
       });
   }
@@ -38,7 +39,8 @@ class AddCases extends Component {
   render() {
     return (
       <Modal
-        {...this.props}
+        show={this.props.show}
+        onHide={this.props.onHide}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -80,15 +82,6 @@ class AddCases extends Component {
                 <Form.Group controlId="createdAt">
                   <Form.Label>createdAt</Form.Label>
                   <Form.Control type="date" name="createdAt" required />
-                </Form.Group>
-
-                <Form.Group>
-                  <Form.Label>Status</Form.Label>
-                  <select name="status">
-                    <option>new</option>
-                    <option>in_progress</option>
-                    <option>done</option>
-                  </select>
                 </Form.Group>
 
                 <Form.Group>
