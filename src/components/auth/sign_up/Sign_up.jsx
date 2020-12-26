@@ -75,7 +75,7 @@ class Sign_up extends Component {
             type="text"
             name="clientId"
             placeholder="ClientId"
-            value={this.state.lientId}
+            value={this.state.clientId}
             onChange={this.handleChange}
             required
           />

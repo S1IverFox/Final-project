@@ -25,7 +25,7 @@ class AddOf extends Component {
         firstName: e.target.firstName.value,
         lastName: e.target.lastName.value,
         password: e.target.password.value,
-        approved: e.target.approved,
+        approved: e.target.approved.value,
       }),
     })
       .then((response) => response.json())
@@ -90,8 +90,8 @@ class AddOf extends Component {
                 <Form.Group controlId="approved">
                   <Form.Label>Approved</Form.Label>
                   <select name="approved">
-                    <option>false</option>
-                    <option>true</option>
+                    <option value="false">false</option>
+                    <option value="true">true</option>
                   </select>
                 </Form.Group>
 
