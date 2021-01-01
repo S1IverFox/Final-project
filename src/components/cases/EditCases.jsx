@@ -32,7 +32,8 @@ class EditCases extends Component {
           color: e.target.color.value,
           ownerFullName: e.target.ownerFullName.value,
           status: e.target.status.value,
-          // createdAt: e.target.createdAt.value,
+          updateAt: new Date().toISOString(),
+          date: e.target.caseDate.value,
           resolution: e.target.resolution.value,
         }),
       })
@@ -100,16 +101,14 @@ class EditCases extends Component {
                     placeholder="ownerFullName"
                   />
                 </Form.Group>
-                {/* <Form.Group>
-                  <Form.Label>createdAt</Form.Label>
+                <Form.Group>
+                  <Form.Label>Date</Form.Label>
                   <Form.Control
                     type="date"
-                    name="createdAt"
-                    required
-                    defaultValue={Date.now}
-                    disabled
+                    name="caseDate"
+                    defaultValue={new Date().toISOString().substr(0, 10)}
                   />
-                </Form.Group> */}
+                </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Status</Form.Label>

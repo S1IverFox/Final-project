@@ -29,7 +29,9 @@ class Info extends Component {
 
   convertDate(createDateStr) {
     const createdDate = new Date(createDateStr);
-    return `${createdDate.getDate()}-${createdDate.getMonth()}-${createdDate.getFullYear()}`;
+    return `${createdDate.getDate()}-${
+      createdDate.getMonth() + 1
+    }-${createdDate.getFullYear()}`;
   }
 
   render() {

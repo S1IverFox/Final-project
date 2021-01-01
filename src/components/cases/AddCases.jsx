@@ -11,6 +11,7 @@ class AddCases extends Component {
   handleSubmit(e) {
     e.preventDefault();
     // const token = localStorage.token;
+    const createDate = new Date().toISOString();
 
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
@@ -25,7 +26,9 @@ class AddCases extends Component {
         licenseNumber: e.target.licenseNumber.value,
         color: e.target.color.value,
         ownerFullName: e.target.ownerFullName.value,
-        createdAt: e.target.createdAt.value,
+        createdAt: createDate,
+        updateAt: createDate,
+        date: e.target.caseDate.value,
         status: 'new',
       }),
     })
@@ -80,10 +83,10 @@ class AddCases extends Component {
                   />
                 </Form.Group>
                 <Form.Group controlId="createdAt">
-                  <Form.Label>createdAt</Form.Label>
+                  <Form.Label>Date</Form.Label>
                   <Form.Control
                     type="date"
-                    name="createdAt"
+                    name="caseDate"
                     required
                     defaultValue={new Date().toISOString().substr(0, 10)}
                   />

@@ -104,6 +104,7 @@ class Cases extends Component {
           <tbody>
             {casess.map((caseItem) => (
               <tr key={caseItem._id}>
+                {console.log(caseItem)}
                 <td>{caseItem.licenseNumber}</td>
                 <td>{caseItem.ownerFullName}</td>
                 <td>{this.renderStatus(caseItem.status)}</td>
