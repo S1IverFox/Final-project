@@ -81,7 +81,12 @@ class AddCases extends Component {
                 </Form.Group>
                 <Form.Group controlId="createdAt">
                   <Form.Label>createdAt</Form.Label>
-                  <Form.Control type="date" name="createdAt" required />
+                  <Form.Control
+                    type="date"
+                    name="createdAt"
+                    required
+                    defaultValue={new Date().toISOString().substr(0, 10)}
+                  />
                 </Form.Group>
 
                 <Form.Group>

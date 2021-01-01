@@ -27,6 +27,11 @@ class Info extends Component {
       });
   }
 
+  convertDate(createDateStr) {
+    const createdDate = new Date(createDateStr);
+    return `${createdDate.getDate()}-${createdDate.getMonth()}-${createdDate.getFullYear()}`;
+  }
+
   render() {
     const {
       casesid,
@@ -70,7 +75,7 @@ class Info extends Component {
                         <td>{caseslicensenumber}</td>
                         <td>{casesownerfullname}</td>
                         <td>{casescolor}</td>
-                        <td>{casescreatedat}</td>
+                        <td>{this.convertDate(casescreatedat)}</td>
                         <td>{casesstatus}</td>
                         <td>{casesresolution}</td>
                       </tr>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 import { ButtonToolbar, Button, Form } from 'react-bootstrap';
 import AddOf from './AddOfficers.jsx';
-import EditOfficers from './EditOfficers.jsx';
+// import EditOfficers from './EditOfficers.jsx';
 import Info from './InfoOfficers.jsx';
 
 class Officer extends Component {
@@ -11,7 +11,6 @@ class Officer extends Component {
     this.state = {
       officers: [],
       addModalShow: false,
-      editModalShow: false,
       infoModalShow: false,
     };
     this.refreshList = this.refreshList.bind(this);
@@ -94,38 +93,7 @@ class Officer extends Component {
       officerapproved,
     } = this.state;
     let addModalClose = () => this.setState({ addModalShow: false });
-    let editModalClose = () => this.setState({ editModalShow: false });
     let infoModalClose = () => this.setState({ infoModalShow: false });
-    console.log(officerid);
-    console.log(officerapproved);
-    // let approveButton;
-    // if (officerapproved == false) {
-    //   approveButton = (
-    //     <Button
-    //       onClick={() =>
-    //         this.setState({
-    //           officerid: officerid,
-    //           officerapproved: true,
-    //         })
-    //       }
-    //     >
-    //       Одобрить
-    //     </Button>
-    //   );
-    // } else {
-    //   approveButton = (
-    //     <Button
-    //       onClick={() =>
-    //         this.setState({
-    //           officerid: officerid,
-    //           officerapproved: false,
-    //         })
-    //       }
-    //     >
-    //       Одобрено
-    //     </Button>
-    //   );
-    // }
 
     return (
       <div>
@@ -165,22 +133,6 @@ class Officer extends Component {
                 </td>
                 <td>
                   <ButtonToolbar>
-                    <Button
-                      onClick={() => {
-                        this.setState({
-                          editModalShow: true,
-                          officerid: officer._id,
-                          officeremail: officer.email,
-                          officerfirstname: officer.firstName,
-                          officerlastname: officer.lastName,
-                          officerpassword: officer.password,
-                          officerapproved: officer.approved,
-                        });
-                      }}
-                    >
-                      Edit
-                    </Button>
-
                     <Button onClick={() => this.deleteOfficer(officer._id)}>
                       Delete
                     </Button>
@@ -219,17 +171,6 @@ class Officer extends Component {
         <Info
           show={this.state.infoModalShow}
           onHide={infoModalClose}
-          officerid={officerid}
-          officeremail={officeremail}
-          officerfirstname={officerfirstname}
-          officerlastname={officerlastname}
-          officerpassword={officerpassword}
-          officerapproved={officerapproved}
-          refresh={this.refreshList}
-        />
-        <EditOfficers
-          show={this.state.editModalShow}
-          onHide={editModalClose}
           officerid={officerid}
           officeremail={officeremail}
           officerfirstname={officerfirstname}
