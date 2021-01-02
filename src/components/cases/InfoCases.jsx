@@ -4,27 +4,6 @@ import { Modal, Row, Form, Col, Table } from 'react-bootstrap';
 class Info extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    // const token = localStorage.token;
-    const casesid = this.props.casesid;
-
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-    fetch('http://84.201.129.203:8888/api/officers' + casesid, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ casess: data });
-      });
   }
 
   convertDate(createDateStr) {
@@ -43,6 +22,11 @@ class Info extends Component {
       casesstatus,
       casescreatedat,
       casesresolution,
+      casesdescription,
+      officername,
+      casestype,
+      casesupdatedat,
+      casesdate,
     } = this.props;
     return (
       <div>
@@ -58,32 +42,38 @@ class Info extends Component {
           <Modal.Body>
             <Row>
               <Col sm={1}>
-                <Form onSubmit={this.handleSubmit}>
-                  <Table>
-                    <thead>
-                      <tr>
-                        <th>Id</th>
-                        <th>License number</th>
-                        <th>Full Name </th>
-                        <th>Color</th>
-                        <th>Created</th>
-                        <th>Status</th>
-                        <th>Resolution</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr key={casesid}>
-                        <td>{casesid}</td>
-                        <td>{caseslicensenumber}</td>
-                        <td>{casesownerfullname}</td>
-                        <td>{casescolor}</td>
-                        <td>{this.convertDate(casescreatedat)}</td>
-                        <td>{casesstatus}</td>
-                        <td>{casesresolution}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Form>
+                <Table>
+                  <thead>
+                    <tr>
+                      <th>License number</th>
+                      <th>Full Name </th>
+                      <th>Color</th>
+                      <th>Date</th>
+                      <th>Officer</th>
+                      <th>Bicycle type</th>
+                      <th>Description</th>
+                      <th>Created</th>
+                      <th>Updated</th>
+                      <th>Status</th>
+                      <th>Resolution</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr key={casesid}>
+                      <td>{caseslicensenumber}</td>
+                      <td>{casesownerfullname}</td>
+                      <td>{casescolor}</td>
+                      <td>{this.convertDate(casesdate)}</td>
+                      <td>{officername}</td>
+                      <td>{casestype}</td>
+                      <td>{casesdescription}</td>
+                      <td>{this.convertDate(casescreatedat)}</td>
+                      <td>{this.convertDate(casesupdatedat)}</td>
+                      <td>{casesstatus}</td>
+                      <td>{casesresolution}</td>
+                    </tr>
+                  </tbody>
+                </Table>
               </Col>
             </Row>
           </Modal.Body>

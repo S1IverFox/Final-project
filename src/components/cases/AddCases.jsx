@@ -12,6 +12,7 @@ class AddCases extends Component {
     e.preventDefault();
     // const token = localStorage.token;
     const createDate = new Date().toISOString();
+    const off = e.target.officer.value == '' ? null : e.target.officer.value;
 
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
@@ -30,6 +31,9 @@ class AddCases extends Component {
         updateAt: createDate,
         date: e.target.caseDate.value,
         status: 'new',
+        type: e.target.bicycleType.value,
+        officer: off,
+        description: e.target.description.value,
       }),
     })
       .then((response) => response.json())
@@ -73,6 +77,24 @@ class AddCases extends Component {
                     <option>Blue</option>
                   </select>
                 </Form.Group>
+                <Form.Group controlId="type">
+                  <Form.Label>Bicycle type</Form.Label>
+                  <select name="bicycleType">
+                    <option value="general">General</option>
+                    <option value="sport">Sport</option>
+                  </select>
+                </Form.Group>
+                <Form.Group controlId="officers">
+                  <Form.Label>Officer</Form.Label>
+                  <select name="officer">
+                    <option value="">Выбрать</option>
+                    {this.props.officers.map((officer) => (
+                      <option key={officer._id} value={officer._id}>
+                        {officer.firstName + ' ' + officer.lastName}
+                      </option>
+                    ))}
+                  </select>
+                </Form.Group>
                 <Form.Group controlId="ownerFullName">
                   <Form.Label>ownerFullName</Form.Label>
                   <Form.Control
@@ -80,6 +102,14 @@ class AddCases extends Component {
                     name="ownerFullName"
                     required
                     placeholder="ownerFullName"
+                  />
+                </Form.Group>
+                <Form.Group controlId="description">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="description"
+                    placeholder="description"
                   />
                 </Form.Group>
                 <Form.Group controlId="createdAt">

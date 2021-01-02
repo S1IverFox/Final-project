@@ -35,6 +35,9 @@ class EditCases extends Component {
           updateAt: new Date().toISOString(),
           date: e.target.caseDate.value,
           resolution: e.target.resolution.value,
+          type: e.target.bicycleType.value,
+          officer: e.target.officer.value,
+          description: e.target.description.value,
         }),
       })
         .then((response) => response.json())
@@ -73,7 +76,7 @@ class EditCases extends Component {
             <Col sm={6}>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
-                  <Form.Label>license Number</Form.Label>
+                  <Form.Label>License Number</Form.Label>
                   <Form.Control
                     type="text"
                     name="licenseNumber"
@@ -81,15 +84,6 @@ class EditCases extends Component {
                     defaultValue={this.props.caseslicensenumber}
                     placeholder="licenseNumber"
                   />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>color</Form.Label>
-                  <select name="color" defaultValue={this.props.casescolor}>
-                    <option>Black</option>
-                    <option>Red</option>
-                    <option>Green</option>
-                    <option>Blue</option>
-                  </select>
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Full Name</Form.Label>
@@ -100,6 +94,15 @@ class EditCases extends Component {
                     defaultValue={this.props.casesownerfullname}
                     placeholder="ownerFullName"
                   />
+                  <Form.Group>
+                    <Form.Label>Color</Form.Label>
+                    <select name="color" defaultValue={this.props.casescolor}>
+                      <option>Black</option>
+                      <option>Red</option>
+                      <option>Green</option>
+                      <option>Blue</option>
+                    </select>
+                  </Form.Group>
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Date</Form.Label>
@@ -109,7 +112,35 @@ class EditCases extends Component {
                     defaultValue={new Date().toISOString().substr(0, 10)}
                   />
                 </Form.Group>
-
+                <Form.Group controlId="officers">
+                  <Form.Label>Officer</Form.Label>
+                  <select name="officer" defaultValue={this.props.casesofficer}>
+                    {this.props.officers.map((officer) => (
+                      <option key={officer._id} value={officer._id}>
+                        {officer.firstName + ' ' + officer.lastName}
+                      </option>
+                    ))}
+                  </select>
+                </Form.Group>
+                <Form.Group controlId="type">
+                  <Form.Label>Bicycle type</Form.Label>
+                  <select
+                    name="bicycleType"
+                    defaultValue={this.props.casestype}
+                  >
+                    <option value="general">General</option>
+                    <option value="sport">Sport</option>
+                  </select>
+                </Form.Group>
+                <Form.Group controlId="description">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="description"
+                    placeholder="description"
+                    defaultValue={this.props.casesdescription}
+                  />
+                </Form.Group>
                 <Form.Group>
                   <Form.Label>Status</Form.Label>
                   <select

@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Modal,
-  Button,
-  Row,
-  Form,
-  Col,
-  Table,
-  ButtonToolbar,
-} from 'react-bootstrap';
+import { Modal, Button, Row, Col, Table, ButtonToolbar } from 'react-bootstrap';
 import EditOfficers from './EditOfficers.jsx';
 
 class Info extends Component {
@@ -16,27 +8,6 @@ class Info extends Component {
     this.state = {
       editModalShow: false,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    // const token = localStorage.token;
-    const officerid = this.props.officerid;
-
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-    fetch('http://84.201.129.203:8888/api/officers' + officerid, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ officers: data });
-      });
   }
 
   render() {
@@ -64,54 +35,52 @@ class Info extends Component {
           <Modal.Body>
             <Row>
               <Col sm={6}>
-                <Form onSubmit={this.handleSubmit}>
-                  <Table>
-                    <thead>
-                      <tr>
-                        <th>id</th>
-                        <th>First Name </th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Approved</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr key={officerid}>
-                        <td>{officerid}</td>
-                        <td>{officerfirstname}</td>
-                        <td>{officerlastname}</td>
-                        <td>{officeremail}</td>
-                        <td>
-                          <input
-                            type="checkbox"
-                            checked={officerapproved}
-                            disabled
-                          ></input>
-                        </td>
-                        <td>
-                          <ButtonToolbar>
-                            <Button
-                              onClick={() => {
-                                this.setState({
-                                  editModalShow: true,
-                                  officerid: officerid,
-                                  officeremail: officeremail,
-                                  officerfirstname: officerfirstname,
-                                  officerlastname: officerlastname,
-                                  officerpassword: officerpassword,
-                                  officerapproved: officerapproved,
-                                });
-                              }}
-                            >
-                              Edit
-                            </Button>
-                          </ButtonToolbar>
-                        </td>
-                      </tr>
-                      {/* ))} */}
-                    </tbody>
-                  </Table>
-                </Form>
+                <Table>
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>First Name </th>
+                      <th>Last Name</th>
+                      <th>Email</th>
+                      <th>Approved</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr key={officerid}>
+                      <td>{officerid}</td>
+                      <td>{officerfirstname}</td>
+                      <td>{officerlastname}</td>
+                      <td>{officeremail}</td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={officerapproved}
+                          disabled
+                        ></input>
+                      </td>
+                      <td>
+                        <ButtonToolbar>
+                          <Button
+                            onClick={() => {
+                              this.setState({
+                                editModalShow: true,
+                                officerid: officerid,
+                                officeremail: officeremail,
+                                officerfirstname: officerfirstname,
+                                officerlastname: officerlastname,
+                                officerpassword: officerpassword,
+                                officerapproved: officerapproved,
+                              });
+                            }}
+                          >
+                            Edit
+                          </Button>
+                        </ButtonToolbar>
+                      </td>
+                    </tr>
+                    {/* ))} */}
+                  </tbody>
+                </Table>
               </Col>
             </Row>
           </Modal.Body>
