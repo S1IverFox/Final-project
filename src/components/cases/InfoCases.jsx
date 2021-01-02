@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Row, Form, Col, Table } from 'react-bootstrap';
+import Converters from './Converters.jsx';
 
 class Info extends Component {
   constructor(props) {
@@ -69,7 +70,7 @@ class Info extends Component {
                       <td>{casesdescription}</td>
                       <td>{this.convertDate(casescreatedat)}</td>
                       <td>{this.convertDate(casesupdatedat)}</td>
-                      <td>{casesstatus}</td>
+                      <td>{Converters.toReadableStatus(casesstatus)}</td>
                       <td>{casesresolution}</td>
                     </tr>
                   </tbody>

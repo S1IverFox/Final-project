@@ -4,6 +4,7 @@ import { ButtonToolbar, Button } from 'react-bootstrap';
 import AddCases from './AddCases.jsx';
 import EditCases from './EditCases.jsx';
 import Info from './InfoCases.jsx';
+import Converters from './Converters.jsx';
 
 class Cases extends Component {
   constructor(props) {
@@ -61,19 +62,6 @@ class Cases extends Component {
           }
         })
         .catch((err) => console.log(err));
-    }
-  }
-
-  renderStatus(status) {
-    switch (status) {
-      case 'new':
-        return 'New';
-      case 'in_progress':
-        return 'In progress';
-      case 'done':
-        return 'Done';
-      default:
-        return 'Unknown status';
     }
   }
 
@@ -154,7 +142,7 @@ class Cases extends Component {
                 {/* {console.log(caseItem)} */}
                 <td>{caseItem.licenseNumber}</td>
                 <td>{caseItem.ownerFullName}</td>
-                <td>{this.renderStatus(caseItem.status)}</td>
+                <td>{Converters.toReadableStatus(caseItem.status)}</td>
                 <td>
                   <ButtonToolbar>
                     <Button

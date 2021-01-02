@@ -78,7 +78,6 @@ class Info extends Component {
                         </ButtonToolbar>
                       </td>
                     </tr>
-                    {/* ))} */}
                   </tbody>
                 </Table>
               </Col>
