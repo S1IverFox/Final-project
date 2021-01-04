@@ -13,7 +13,7 @@ import Cases from './components/cases/Cases.jsx';
 import reducer from './components/auth/reducer.jsx';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import Officer from './components/Officer/Officer.jsx';
+import Officer from './components/officers/Officer.jsx';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 import AddCases from './AddCases.jsx';
-import EditCases from './EditCases.jsx';
 import Info from './InfoCases.jsx';
 import Converters from './Converters.jsx';
+import CaseFetches from '../../fetches/CaseFetches.jsx';
+import OfficerFetches from '../../fetches/OfficerFetches.jsx';
 
 class Cases extends Component {
   constructor(props) {
@@ -26,39 +27,20 @@ class Cases extends Component {
   }
 
   refreshList() {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-    fetch('http://84.201.129.203:8888/api/cases', {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ casess: data });
-      });
+    CaseFetches.getAllCases().then((data) => {
+      this.setState({ casess: data });
+    });
   }
 
   deleteCase(casesid) {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
     if (confirm('Are you sure?')) {
-      fetch('http://84.201.129.203:8888/api/cases/' + casesid, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      CaseFetches.deleteCase(casesid)
         .then((response) => {
           if (response.ok) {
             alert('succsess');
             this.refreshList();
           } else {
-            alert('can not delete case with id:' + officerid);
+            alert('can not delete case with id:' + casesid);
           }
         })
         .catch((err) => console.log(err));
@@ -66,37 +48,17 @@ class Cases extends Component {
   }
 
   getOfficers() {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-    fetch('http://84.201.129.203:8888/api/officers', {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ officers: data });
-      });
+    OfficerFetches.getAllOfficers().then((data) => {
+      this.setState({ officers: data });
+    });
   }
 
   getOfficer(officerId) {
+    this.setState({ officername: 'Loading...' });
     if (officerId != undefined) {
-      // const token = localStorage.token;
-      const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-      return fetch('http://84.201.129.203:8888/api/officers/' + officerId, {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          this.setState({ officername: data.firstName });
-        });
+      OfficerFetches.getOfficer(officerId).then((data) => {
+        this.setState({ officername: data.firstName });
+      });
     } else {
       this.setState({ officername: 'No officer' });
     }
@@ -121,7 +83,6 @@ class Cases extends Component {
       officername,
     } = this.state;
     let addModalClose = () => this.setState({ addModalShow: false });
-    let editModalClose = () => this.setState({ editModalShow: false });
     let infoModalClose = () => this.setState({ infoModalShow: false });
 
     return (
@@ -145,27 +106,6 @@ class Cases extends Component {
                 <td>{Converters.toReadableStatus(caseItem.status)}</td>
                 <td>
                   <ButtonToolbar>
-                    <Button
-                      onClick={() =>
-                        this.setState({
-                          editModalShow: true,
-                          casesid: caseItem._id,
-                          casesownerfullname: caseItem.ownerFullName,
-                          caseslicensenumber: caseItem.licenseNumber,
-                          casescolor: caseItem.color,
-                          casescreatedat: caseItem.createdAt,
-                          casesupdatedat: caseItem.updateAt,
-                          casesdate: caseItem.date,
-                          casesstatus: caseItem.status,
-                          casesdescription: caseItem.description,
-                          casesofficer: caseItem.officer,
-                          casestype: caseItem.type,
-                        })
-                      }
-                    >
-                      Edit
-                    </Button>
-
                     <Button onClick={() => this.deleteCase(caseItem._id)}>
                       Delete
                     </Button>
@@ -208,22 +148,6 @@ class Cases extends Component {
           onHide={addModalClose}
           officers={officers}
         />
-        <EditCases
-          show={this.state.editModalShow}
-          onHide={editModalClose}
-          casesid={casesid}
-          caseslicensenumber={caseslicensenumber}
-          casesownerfullname={casesownerfullname}
-          casescolor={casescolor}
-          casescreatedat={casescreatedat}
-          casesstatus={casesstatus}
-          casesresolution={casesresolution}
-          refresh={this.refreshList}
-          officers={officers}
-          casesdescription={casesdescription}
-          casesofficer={casesofficer}
-          casestype={casestype}
-        />
         <Info
           show={this.state.infoModalShow}
           onHide={infoModalClose}
@@ -239,6 +163,8 @@ class Cases extends Component {
           casestype={casestype}
           casesupdatedat={casesupdatedat}
           casesdate={casesdate}
+          officers={officers}
+          refresh={this.refreshList}
         />
       </div>
     );
