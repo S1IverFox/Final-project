@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Row, Form, Col } from 'react-bootstrap';
-// import { render } from 'react-dom';
+import CaseFetches from '../../fetches/CaseFetches.jsx';
 
 class AddCases extends Component {
   constructor(props) {
@@ -10,37 +10,12 @@ class AddCases extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // const token = localStorage.token;
-    const createDate = new Date().toISOString();
-    const off = e.target.officer.value == '' ? null : e.target.officer.value;
-
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-    fetch('http://84.201.129.203:8888/api/cases', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        licenseNumber: e.target.licenseNumber.value,
-        color: e.target.color.value,
-        ownerFullName: e.target.ownerFullName.value,
-        createdAt: createDate,
-        updateAt: createDate,
-        date: e.target.caseDate.value,
-        status: 'new',
-        type: e.target.bicycleType.value,
-        officer: off,
-        description: e.target.description.value,
-      }),
-    })
-      .then((response) => response.json())
+    CaseFetches.addCase(e.target)
       .then(() => {
         this.props.refresh();
         alert('succses');
-      });
+      })
+      .then(() => e.target.reset());
   }
 
   render() {
@@ -60,7 +35,7 @@ class AddCases extends Component {
             <Col sm={6}>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="licenseNumber">
-                  <Form.Label>licenseNumber</Form.Label>
+                  <Form.Label>License Number</Form.Label>
                   <Form.Control
                     type="text"
                     name="licenseNumber"
@@ -69,7 +44,7 @@ class AddCases extends Component {
                   />
                 </Form.Group>
                 <Form.Group controlId="color">
-                  <Form.Label>color</Form.Label>
+                  <Form.Label>Color</Form.Label>
                   <select name="color">
                     <option>Black</option>
                     <option>Red</option>
@@ -96,7 +71,7 @@ class AddCases extends Component {
                   </select>
                 </Form.Group>
                 <Form.Group controlId="ownerFullName">
-                  <Form.Label>ownerFullName</Form.Label>
+                  <Form.Label>Owner Full Name</Form.Label>
                   <Form.Control
                     type="text"
                     name="ownerFullName"

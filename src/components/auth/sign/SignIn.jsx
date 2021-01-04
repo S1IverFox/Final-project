@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { userLogin } from '../authAct.jsx';
 import { FormErrors } from '../authAct.jsx';
-import Button from '../../Buttons/Button.jsx';
+import SignFetches from '../../../fetches/SignFetches.jsx';
+import { Button, Form } from 'react-bootstrap';
 
-class Sign_in extends Component {
+class SignIn extends Component {
   state = {
     email: '',
     password: '',
@@ -14,15 +15,12 @@ class Sign_in extends Component {
     formValid: false,
   };
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value }, () => {
-      this.validateField(e.target.name, e.target.value);
-    });
-  };
-
-  handleSubmit = (e) => {
+  userLogin = (e) => {
     e.preventDefault();
-    this.props.userLogin(this.state);
+    // return (dispatch) => {
+    SignFetches.postUserLogIn(e.target);
+    // dispatch(loginUser(data));
+    // };
   };
 
   validateField(fieldName, value) {
@@ -62,37 +60,33 @@ class Sign_in extends Component {
         <div>
           <FormErrors formErrors={this.state.formErrors} />
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <label>Email</label>
-          <input
-            type="text"
-            name="email"
-            placeholder="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
-          <br />
+        <Form onSubmit={this.userLogin}>
+          <Form.Group>
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="text"
+              name="email"
+              placeholder="email"
+              required
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Пароль</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="password"
+              required
+            />
+          </Form.Group>
 
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
-          <br />
-
-          <input type="submit" disabled={!this.state.formValid} />
-        </form>
-        <div>
           <Button
-            btnText="Main screen"
-            onClickBtn={() => window.location.assign('http://localhost:8080')}
-          />
-        </div>
+            type="submit"
+            // disabled={!this.state.formValid}
+          >
+            Войти
+          </Button>
+        </Form>
       </div>
     );
   }
@@ -102,4 +96,4 @@ const mapDispatchToProps = (dispatch) => ({
   userLogin: (userInfo) => dispatch(userLogin(userInfo)),
 });
 
-export default connect(null, mapDispatchToProps)(Sign_in);
+export default connect(null, mapDispatchToProps)(SignIn);

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { Modal, Row, Form, Col, Table } from 'react-bootstrap';
+import { Modal, Row, Col, Table, Button, ButtonToolbar } from 'react-bootstrap';
 import Converters from './Converters.jsx';
+import EditCases from './EditCases.jsx';
 
 class Info extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      editModalShow: false,
+    };
   }
 
   convertDate(createDateStr) {
@@ -28,11 +32,15 @@ class Info extends Component {
       casestype,
       casesupdatedat,
       casesdate,
+      officers,
+      casesofficer,
     } = this.props;
+    let editModalClose = () => this.setState({ editModalShow: false });
     return (
       <div>
         <Modal
-          {...this.props}
+          show={this.props.show}
+          onHide={this.props.onHide}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
@@ -72,6 +80,31 @@ class Info extends Component {
                       <td>{this.convertDate(casesupdatedat)}</td>
                       <td>{Converters.toReadableStatus(casesstatus)}</td>
                       <td>{casesresolution}</td>
+                      <td>
+                        <ButtonToolbar>
+                          <Button
+                            onClick={() =>
+                              this.setState({
+                                editModalShow: true,
+                                casesid: casesid,
+                                casesownerfullname: casesownerfullname,
+                                caseslicensenumber: caseslicensenumber,
+                                casescolor: casescolor,
+                                casescreatedat: casescreatedat,
+                                casesupdatedat: casesupdatedat,
+                                casesdate: casesdate,
+                                casesstatus: casesstatus,
+                                casesdescription: casesdescription,
+                                casesofficer: casesofficer,
+                                casestype: casestype,
+                                casesresolution: casesresolution,
+                              })
+                            }
+                          >
+                            Edit
+                          </Button>
+                        </ButtonToolbar>
+                      </td>
                     </tr>
                   </tbody>
                 </Table>
@@ -79,6 +112,24 @@ class Info extends Component {
             </Row>
           </Modal.Body>
         </Modal>
+        <EditCases
+          show={this.state.editModalShow}
+          onHide={editModalClose}
+          casesid={casesid}
+          caseslicensenumber={caseslicensenumber}
+          casesownerfullname={casesownerfullname}
+          casescolor={casescolor}
+          casescreatedat={casescreatedat}
+          casesstatus={casesstatus}
+          casesresolution={casesresolution}
+          refresh={this.refreshList}
+          officers={officers}
+          casesdescription={casesdescription}
+          casesofficer={casesofficer}
+          casestype={casestype}
+          officers={officers}
+          refresh={this.props.refresh}
+        />
       </div>
     );
   }

@@ -6,9 +6,7 @@ function AddStatement() {
     <div>
       <Button
         btnText="Заявить о краже"
-        onClickBtn={() =>
-          window.location.assign('http://localhost:8080/public/report')
-        }
+        onClickBtn={() => window.location.assign('/public/report')}
       />
     </div>
   );

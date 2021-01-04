@@ -6,10 +6,7 @@ function BtnOfficers() {
     <div>
       <Button
         btnText="Ответственные сотрудники"
-        onClickBtn={
-          () => window.location.assign('http://localhost:8080/officers')
-          //window.location.assign('http://84.201.129.203:8888/api/officers')
-        }
+        onClickBtn={() => window.location.assign('/officers')}
       />
     </div>
   );

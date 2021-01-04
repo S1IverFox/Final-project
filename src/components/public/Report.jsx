@@ -1,35 +1,22 @@
 import React, { Component } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import ReportFetches from '../../fetches/ReportFetches.jsx';
 
 class Report extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reports: [],
+      officers: [],
     };
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('http://84.201.129.203:8888/api/public/report', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        licenseNumber: e.target.licenseNumber.value,
-        color: e.target.color.value,
-        ownerFullName: e.target.ownerFullName.value,
-        createdAt: e.target.createdAt.value,
-        clientId: 'a9432bbe73645c1825a4c426db59f47d',
-        status: 'New',
-      }),
-    })
-      .then((response) => response.json())
+    ReportFetches.addReport(e.target)
       .then(() => {
         alert('succses');
-      });
+      })
+      .then(() => e.target.reset());
   }
 
   render() {
@@ -46,13 +33,33 @@ class Report extends Component {
               placeholder="licenseNumber"
             />
           </Form.Group>
-          <label>Color</label>
-          <select name="color">
-            <option>Black</option>
-            <option>Red</option>
-            <option>Green</option>
-            <option>Blue</option>
-          </select>
+          <Form.Group controlId="color">
+            <Form.Label>Color</Form.Label>
+            <select name="color">
+              <option>Black</option>
+              <option>Red</option>
+              <option>Green</option>
+              <option>Blue</option>
+            </select>
+          </Form.Group>
+          <Form.Group controlId="type">
+            <Form.Label>Bicycle type</Form.Label>
+            <select name="bicycleType">
+              <option value="general">General</option>
+              <option value="sport">Sport</option>
+            </select>
+          </Form.Group>
+          {/* <Form.Group controlId="officers">
+            <Form.Label>Officer</Form.Label>
+            <select name="officer">
+              <option value="">Выбрать</option>
+              {this.state.officers.map((officer) => (
+                <option key={officer._id} value={officer._id}>
+                  {officer.firstName + ' ' + officer.lastName}
+                </option>
+              ))}
+            </select>
+          </Form.Group> */}
           <Form.Group controlId="ownerFullName">
             <Form.Label>Owner Full Name</Form.Label>
             <Form.Control
@@ -62,9 +69,22 @@ class Report extends Component {
               placeholder="ownerFullName"
             />
           </Form.Group>
+          <Form.Group controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              type="text"
+              name="description"
+              placeholder="description"
+            />
+          </Form.Group>
           <Form.Group controlId="createdAt">
-            <Form.Label>CreatedAt</Form.Label>
-            <Form.Control type="date" name="createdAt" required />
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="date"
+              name="caseDate"
+              required
+              defaultValue={new Date().toISOString().substr(0, 10)}
+            />
           </Form.Group>
 
           <Form.Group>

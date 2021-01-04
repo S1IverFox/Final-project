@@ -8,7 +8,7 @@ class Auth extends Component {
     this.props.getProfileFetch;
   };
 
-  handleClick = (event) => {
+  logOut = (event) => {
     event.preventDefault();
     // Удаление token из localStorage
     localStorage.removeItem('token');
@@ -22,22 +22,16 @@ class Auth extends Component {
         <div>
           <Button
             btnText="sign_in"
-            onClickBtn={
-              () => window.location.assign('http://localhost:8080/auth/sign_in')
-              // window.location.assign('http://84.201.129.203:8888/auth/sign_in')
-            }
+            onClickBtn={() => window.location.assign('/auth/sign_in')}
           />
         </div>
         <Button
           btnText="sign_up"
-          onClickBtn={
-            () => window.location.assign('http://localhost:8080/auth/sign_up')
-            // window.location.assign('http://84.201.129.203:8888/auth/sign_up')
-          }
+          onClickBtn={() => window.location.assign('/auth/sign_up')}
         />
         <div>
           {this.props.currentUser.name ? (
-            <Button btnText="Log out" onClickBtn={this.handleClick} />
+            <Button btnText="Log out" onClickBtn={this.logOut} />
           ) : null}
         </div>
       </div>

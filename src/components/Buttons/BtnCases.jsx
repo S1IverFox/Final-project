@@ -6,7 +6,7 @@ function BtnCases() {
     <div>
       <Button
         btnText="Сообщения о кражах"
-        onClickBtn={() => window.location.assign('http://localhost:8080/cases')}
+        onClickBtn={() => window.location.assign('/cases')}
       />
     </div>
   );

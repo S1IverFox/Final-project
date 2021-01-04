@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
-import { ButtonToolbar, Button, Form } from 'react-bootstrap';
+import { ButtonToolbar, Button } from 'react-bootstrap';
+import OfficerFetches from '../../fetches/OfficerFetches.jsx';
 import AddOf from './AddOfficers.jsx';
-// import EditOfficers from './EditOfficers.jsx';
 import Info from './InfoOfficers.jsx';
 
-class Officer extends Component {
+class Officers extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,39 +21,20 @@ class Officer extends Component {
   }
 
   refreshList() {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-    fetch('http://84.201.129.203:8888/api/officers', {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ officers: data });
-      });
+    OfficerFetches.getAllOfficers().then((data) => {
+      this.setState({ officers: data });
+    });
   }
 
-  deleteOfficer(officerid) {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
+  deleteOfficer(officerId) {
     if (confirm('Are you sure?')) {
-      fetch('http://84.201.129.203:8888/api/officers/' + officerid, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      OfficerFetches.deleteOfficer(officerId)
         .then((response) => {
           if (response.ok) {
             alert('succsess');
             this.refreshList();
           } else {
-            alert('can not delete officer with id:' + officerid);
+            alert('can not delete officer with id:' + officerId);
           }
         })
         .catch((err) => console.log(err));
@@ -61,25 +42,10 @@ class Officer extends Component {
   }
 
   updateApproveStatus(officer) {
-    const officerid = officer._id;
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZhYWNkODUwYmQ3NTkwMDExZjNhODk3IiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDU5NDg4NDR9.QuzvIbYiGxAIu8y4UtyKMYvdcuHXnXmJJHmXWmjTOMI';
-    fetch('http://84.201.129.203:8888/api/officers/' + officerid, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        approved: !officer.approved,
-      }),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        this.refreshList();
-        alert('succses');
-      });
+    OfficerFetches.updateApproveStatus(officer).then(() => {
+      this.refreshList();
+      alert('succses');
+    });
   }
 
   render() {
@@ -184,4 +150,4 @@ class Officer extends Component {
   }
 }
 
-export default Officer;
+export default Officers;
