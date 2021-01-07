@@ -13,22 +13,22 @@ class SignFetches {
         firstName: user.firstName.value,
         lastName: user.lastName.value,
         clientId: user.clientId.value,
-        approved: user.approved.checked,
       }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error.message) {
-          alert(data.error.message);
-        } else {
-          localStorage.setItem('token', data.token);
-          alert('Добро пожаловать!');
-          window.location.assign('/');
-        }
-      });
+    }).then((response) => {
+      if (response.ok) {
+        return Promise.resolve('Успешная регистрация!');
+      } else {
+        return response
+          .json()
+          .then((data) => data.error.message)
+          .then((message) => {
+            throw new Error(message);
+          });
+      }
+    });
   }
 
-  static postUserLogIn(user) {
+  static postUserLogIn(email, password) {
     return fetch('http://84.201.129.203:8888/api/auth/sign_in', {
       method: 'POST',
       headers: {
@@ -36,37 +36,29 @@ class SignFetches {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        email: user.email.value,
-        password: user.password.value,
+        email: email,
+        password: password,
       }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // if (data.message) {
-        //   alert(data.message);
-        // } else {
-        localStorage.setItem('token', data.token);
-        alert('Добро пожаловать!');
-        window.location.assign('/');
-        // }
-      });
-  }
-
-  static getToken() {
-    return localStorage.token;
-  }
-
-  static getProfile() {
-    const token = this.getToken();
-    return fetch('http://84.201.129.203:8888/api/auth/sign_in', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => response.json());
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return response
+          .json()
+          .then((data) => data.error.message)
+          .then((message) => {
+            throw new Error(message);
+          });
+        // .then((data) => {
+        //   // if (data.message) {
+        //   //   alert(data.message);
+        //   // } else {
+        //   localStorage.setItem('token', data.token);
+        //   alert('Добро пожаловать!');
+        //   window.location.assign('/');
+        //   // }
+      }
+    });
   }
 }
-
 export default SignFetches;

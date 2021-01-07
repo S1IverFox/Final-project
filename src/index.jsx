@@ -13,8 +13,9 @@ import reducer from './components/auth/reducer.jsx';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import Officers from './components/officers/Officers.jsx';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 function App() {
   return (

@@ -1,8 +1,8 @@
 class OfficerFetches {
   static getToken() {
-    // const token = localStorage.token;
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZmMmU3NjIwYmQ3NTkwMDExZjNhYTMyIiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDk3OTEyNTR9.GWmInroQnva3Jfi3chnTDb6MMc_Ti7oHCiGF1Tr9g2U';
+    const token = localStorage.token;
+    // const token =
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHByb3ZlZCI6dHJ1ZSwiX2lkIjoiNWZmMmU3NjIwYmQ3NTkwMDExZjNhYTMyIiwiZW1haWwiOiJlbHphLnNoYXJAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoi0K3Qu9GM0LfQsCIsImxhc3ROYW1lIjoi0KjQsNGA0LDRhNGD0YLQtNC40L3QvtCy0LAiLCJjbGllbnRJZCI6ImE5NDMyYmJlNzM2NDVjMTgyNWE0YzQyNmRiNTlmNDdkIiwiX192IjowLCJpYXQiOjE2MDk3OTEyNTR9.GWmInroQnva3Jfi3chnTDb6MMc_Ti7oHCiGF1Tr9g2U';
     return token;
   }
 

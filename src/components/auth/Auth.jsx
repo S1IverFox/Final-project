@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Button from '../Buttons/Button.jsx';
-import { getProfileFetch, logoutUser } from './authAct.jsx';
+import { logoutUser } from './reducer.jsx';
 import { connect } from 'react-redux';
+import SignFetches from '../../fetches/SignFetches.jsx';
 
 class Auth extends Component {
   componentDidMount = () => {
-    this.props.getProfileFetch;
+    SignFetches.getProfile();
   };
 
   logOut = (event) => {
@@ -44,7 +45,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getProfileFetch: () => dispatch(getProfileFetch()),
+  getProfile: () => dispatch(getProfile()),
   logoutUser: () => dispatch(logoutUser()),
 });
 

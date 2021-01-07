@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { userLogin } from '../authAct.jsx';
-import { FormErrors } from '../authAct.jsx';
 import SignFetches from '../../../fetches/SignFetches.jsx';
 import { Button, Form } from 'react-bootstrap';
 
@@ -15,12 +12,19 @@ class SignIn extends Component {
     formValid: false,
   };
 
-  userLogin = (e) => {
+  userLoginFunc = (e) => {
     e.preventDefault();
-    // return (dispatch) => {
-    SignFetches.postUserLogIn(e.target);
-    // dispatch(loginUser(data));
-    // };
+    SignFetches.postUserLogIn(e.target.email.value, e.target.password.value)
+      .then((user) => {
+        localStorage.setItem('token', user.token);
+        const userJson = JSON.stringify(user);
+        localStorage.setItem('currentUser', userJson);
+        alert(`Добро пожаловать, ${user.firstName}`);
+        window.location.assign('/');
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   validateField(fieldName, value) {
@@ -57,14 +61,12 @@ class SignIn extends Component {
   render() {
     return (
       <div>
-        <div>
-          <FormErrors formErrors={this.state.formErrors} />
-        </div>
-        <Form onSubmit={this.userLogin}>
+        <div>{/* <FormErrors formErrors={this.state.formErrors} /> */}</div>
+        <Form onSubmit={this.userLoginFunc}>
           <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
-              type="text"
+              type="email"
               name="email"
               placeholder="email"
               required
@@ -92,8 +94,4 @@ class SignIn extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  userLogin: (userInfo) => dispatch(userLogin(userInfo)),
-});
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

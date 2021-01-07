@@ -12,13 +12,19 @@ class SignUp extends Component {
     firstName: '',
     lastName: '',
     clientId: '',
-    approve: true,
   };
 
   handleSubmit(e) {
     e.preventDefault();
     // return (dispatch) => {
-    SignFetches.postUserSignUp(e.target);
+    SignFetches.postUserSignUp(e.target)
+      .then((message) => {
+        alert(message);
+        window.location.assign('/');
+      })
+      .catch((reason) => {
+        alert(reason);
+      });
     //   dispatch(loginUser(data));
     // };
   }
@@ -30,7 +36,7 @@ class SignUp extends Component {
           <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
-              type="text"
+              type="email"
               name="email"
               placeholder="email"
               required
@@ -82,16 +88,6 @@ class SignUp extends Component {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Approved</Form.Label>
-            <input
-              name="approved"
-              type="checkbox"
-              defaultChecked={this.state}
-              disabled
-            />
-          </Form.Group>
-
-          <Form.Group>
             <Button type="submit">Зарегистрироваться</Button>
           </Form.Group>
         </Form>
@@ -101,7 +97,7 @@ class SignUp extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userPost: (userInfo) => dispatch(userPost(userInfo)),
+  postUserSignUp: (userInfo) => dispatch(postUserSignUp(userInfo)),
 });
 
 export default connect(null, mapDispatchToProps)(SignUp);

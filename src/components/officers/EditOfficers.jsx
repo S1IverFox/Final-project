@@ -38,7 +38,7 @@ class EditOffecer extends Component {
                 <Form.Group>
                   <Form.Label>email</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="email"
                     name="email"
                     required
                     defaultValue={this.props.officeremail}

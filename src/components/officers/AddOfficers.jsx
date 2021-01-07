@@ -39,7 +39,7 @@ class AddOf extends Component {
                 <Form.Group controlId="email">
                   <Form.Label>email</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="email"
                     name="email"
                     required
                     placeholder="email"
