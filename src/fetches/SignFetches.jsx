@@ -49,14 +49,6 @@ class SignFetches {
           .then((message) => {
             throw new Error(message);
           });
-        // .then((data) => {
-        //   // if (data.message) {
-        //   //   alert(data.message);
-        //   // } else {
-        //   localStorage.setItem('token', data.token);
-        //   alert('Добро пожаловать!');
-        //   window.location.assign('/');
-        //   // }
       }
     });
   }

@@ -25,7 +25,18 @@ class OfficerFetches {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => response.json());
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return response
+          .json()
+          .then((data) => data.error.message)
+          .then((message) => {
+            throw new Error(message);
+          });
+      }
+    });
   }
 
   static deleteOfficer(officerId) {
@@ -72,7 +83,18 @@ class OfficerFetches {
         password: officerItem.password.value,
         approved: officerItem.approved.checked,
       }),
-    }).then((response) => response.json());
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return response
+          .json()
+          .then((data) => data.error.message)
+          .then((message) => {
+            throw new Error(message);
+          });
+      }
+    });
   }
 
   static addOfficer(officerItem) {
@@ -91,7 +113,18 @@ class OfficerFetches {
         password: officerItem.password.value,
         approved: officerItem.approved.checked,
       }),
-    }).then((response) => response.json());
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return response
+          .json()
+          .then((data) => data.error.message)
+          .then((message) => {
+            throw new Error(message);
+          });
+      }
+    });
   }
 }
 

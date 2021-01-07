@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import { userPost } from '../authAct.jsx';
+import { FormErrors } from '../authAct.jsx';
 import SignFetches from '../../../fetches/SignFetches.jsx';
 import { Button, Form } from 'react-bootstrap';
 
@@ -12,11 +11,17 @@ class SignUp extends Component {
     firstName: '',
     lastName: '',
     clientId: '',
+    formErrors: { password: '' },
+    passwordValid: false,
+    formValid: false,
   };
 
   handleSubmit(e) {
     e.preventDefault();
-    // return (dispatch) => {
+    if (e.target.repassword.value !== e.target.password.value) {
+      alert('Пароли не сопадают! Попробуете еще раз.');
+      return;
+    }
     SignFetches.postUserSignUp(e.target)
       .then((message) => {
         alert(message);
@@ -25,13 +30,48 @@ class SignUp extends Component {
       .catch((reason) => {
         alert(reason);
       });
-    //   dispatch(loginUser(data));
-    // };
+  }
+
+  handleUserInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({ [name]: value }, () => {
+      this.validateField(name, value);
+    });
+  };
+
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let passwordValid = this.state.passwordValid;
+    switch (fieldName) {
+      case 'password':
+        passwordValid = value.length >= 3;
+        fieldValidationErrors.password = passwordValid ? '' : ' is too short';
+        break;
+      default:
+        break;
+    }
+
+    this.setState(
+      {
+        formErrors: fieldValidationErrors,
+        passwordValid: passwordValid,
+      },
+      this.validateForm()
+    );
+  }
+  validateForm() {
+    this.setState({
+      formValid: this.state.passwordValid,
+    });
   }
 
   render() {
     return (
       <div>
+        <div>
+          <FormErrors formErrors={this.state.formErrors} />
+        </div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label>Email</Form.Label>
@@ -42,7 +82,7 @@ class SignUp extends Component {
               required
             />
           </Form.Group>
-          <Form.Group>
+          <Form.Group onChange={this.handleUserInput}>
             <Form.Label>Пароль</Form.Label>
             <Form.Control
               type="password"
@@ -50,15 +90,15 @@ class SignUp extends Component {
               placeholder="password"
               required
             />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Повторите пароль</Form.Label>
-            <Form.Control
-              type="password"
-              name="repassword"
-              placeholder="repassword"
-              required
-            />
+            <Form.Group>
+              <Form.Label>Повторите пароль</Form.Label>
+              <Form.Control
+                type="password"
+                name="repassword"
+                placeholder="repassword"
+                required
+              />
+            </Form.Group>
           </Form.Group>
           <Form.Group>
             <Form.Label>Имя</Form.Label>
@@ -96,8 +136,4 @@ class SignUp extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  postUserSignUp: (userInfo) => dispatch(postUserSignUp(userInfo)),
-});
-
-export default connect(null, mapDispatchToProps)(SignUp);
+export default SignUp;

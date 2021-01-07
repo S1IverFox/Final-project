@@ -15,7 +15,8 @@ class AddOf extends Component {
         this.props.refresh();
         alert('succses');
       })
-      .then(() => e.target.reset());
+      .then(() => e.target.reset())
+      .catch((err) => alert(err));
   }
 
   render() {
@@ -63,13 +64,22 @@ class AddOf extends Component {
                     placeholder="Last Name"
                   />
                 </Form.Group>
-                <Form.Group controlId="password">
+                <Form.Group>
                   <Form.Label>password</Form.Label>
                   <Form.Control
                     type="password"
                     name="password"
                     required
                     placeholder="password"
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>repassword</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    required
+                    placeholder="repassword"
                   />
                 </Form.Group>
                 <Form.Group controlId="approved">

@@ -11,10 +11,12 @@ class EditOffecer extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const officerId = this.props.officerid;
-    OfficerFetches.editOfficer(e.target, officerId).then(() => {
-      this.props.refresh();
-      alert('succses');
-    });
+    OfficerFetches.editOfficer(e.target, officerId)
+      .then(() => {
+        this.props.refresh();
+        alert('succses');
+      })
+      .catch((err) => alert(err));
   }
 
   render() {
@@ -73,6 +75,16 @@ class EditOffecer extends Component {
                     required
                     defaultValue={this.props.officerpassword}
                     placeholder="password"
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>repassword</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    required
+                    defaultValue={this.props.officerpassword}
+                    placeholder="repassword"
                   />
                 </Form.Group>
                 <Form.Group>

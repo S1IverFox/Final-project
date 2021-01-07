@@ -56,9 +56,15 @@ class Cases extends Component {
   getOfficer(officerId) {
     this.setState({ officername: 'Loading...' });
     if (officerId != undefined) {
-      OfficerFetches.getOfficer(officerId).then((data) => {
-        this.setState({ officername: data.firstName });
-      });
+      OfficerFetches.getOfficer(officerId)
+        .then((data) => {
+          this.setState({ officername: data.firstName });
+        })
+        .catch((error) =>
+          this.setState({
+            officername: `${error} id:${officerId}`,
+          })
+        );
     } else {
       this.setState({ officername: 'No officer' });
     }
