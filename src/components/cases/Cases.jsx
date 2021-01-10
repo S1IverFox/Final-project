@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
-import { ButtonToolbar, Button } from 'react-bootstrap';
+import { ButtonToolbar, Button, Spinner } from 'react-bootstrap';
 import AddCases from './AddCases.jsx';
-import Info from './InfoCases.jsx';
+import InfoCases from './InfoCases.jsx';
 import Converters from './Converters.jsx';
 import CaseFetches from '../../fetches/CaseFetches.jsx';
 import OfficerFetches from '../../fetches/OfficerFetches.jsx';
@@ -13,7 +13,7 @@ class Cases extends Component {
     this.state = {
       casess: [],
       officers: [],
-      officername: 'No officer',
+      officername: <Spinner animation="border" />,
       addModalShow: false,
       editModalShow: false,
       infoModalShow: false,
@@ -54,19 +54,19 @@ class Cases extends Component {
   }
 
   getOfficer(officerId) {
-    this.setState({ officername: 'Loading...' });
+    this.setState({ officername: <Spinner animation="border" /> });
     if (officerId != undefined) {
       OfficerFetches.getOfficer(officerId)
         .then((data) => {
-          this.setState({ officername: data.firstName });
+          this.setState({ officername: <span>{data.firstName}</span> });
         })
         .catch((error) =>
           this.setState({
-            officername: `${error} id:${officerId}`,
+            officername: <span>{`${error} id:${officerId}`}</span>,
           })
         );
     } else {
-      this.setState({ officername: 'No officer' });
+      this.setState({ officername: <span>No officer</span> });
     }
   }
 
@@ -93,7 +93,7 @@ class Cases extends Component {
     return (
       <div>
         <h3>Cases</h3>
-        <Table>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>License number</th>
@@ -153,7 +153,7 @@ class Cases extends Component {
           onHide={addModalClose}
           officers={officers}
         />
-        <Info
+        <InfoCases
           show={this.state.infoModalShow}
           onHide={infoModalClose}
           casesid={casesid}

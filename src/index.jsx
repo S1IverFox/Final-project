@@ -3,23 +3,18 @@ import './user.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import SignIn from './components/auth/sign/SignIn.jsx';
-import SignUp from './components/auth/sign/SignUp.jsx';
+import SignIn from './components/auth/SignIn.jsx';
+import SignUp from './components/auth/SignUp.jsx';
 import Report from './components/public/Report.jsx';
 import Main from './components/main/Main.jsx';
 import Cases from './components/cases/Cases.jsx';
-import reducer from './components/auth/reducer.jsx';
-import { applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
 import Officers from './components/officers/Officers.jsx';
-import { composeWithDevTools } from 'redux-devtools-extension';
-
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+import Header from './components/main/Header.jsx';
 
 function App() {
   return (
     <div>
+      <Header />
       <div className="main">
         <Switch>
           <Route path="/" component={Main} exact={true} />
@@ -35,10 +30,8 @@ function App() {
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
   document.getElementById('root')
 );

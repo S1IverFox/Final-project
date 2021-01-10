@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { FormErrors } from '../authAct.jsx';
-import SignFetches from '../../../fetches/SignFetches.jsx';
+import { FormErrors } from './FormErrors.jsx';
+import SignFetches from '../../fetches/SignFetches.jsx';
 import { Button, Form } from 'react-bootstrap';
 
 class SignUp extends Component {

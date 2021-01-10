@@ -83,8 +83,9 @@ class AddOf extends Component {
                   />
                 </Form.Group>
                 <Form.Group controlId="approved">
-                  <Form.Label>Approved</Form.Label>
-                  <input
+                  <Form.Switch
+                    label="Approved"
+                    type="switch"
                     name="approved"
                     type="checkbox"
                     defaultChecked={this.props.officerapproved}

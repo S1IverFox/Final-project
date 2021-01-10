@@ -21,9 +21,11 @@ class Officers extends Component {
   }
 
   refreshList() {
-    OfficerFetches.getAllOfficers().then((data) => {
-      this.setState({ officers: data });
-    });
+    OfficerFetches.getAllOfficers()
+      .then((data) => {
+        this.setState({ officers: data });
+      })
+      .catch((err) => alert(err));
   }
 
   deleteOfficer(officerId) {
@@ -64,7 +66,7 @@ class Officers extends Component {
     return (
       <div>
         <h3>Officers</h3>
-        <Table>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>First Name</th>

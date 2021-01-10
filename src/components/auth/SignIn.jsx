@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignFetches from '../../../fetches/SignFetches.jsx';
+import SignFetches from '../../fetches/SignFetches.jsx';
 import { Button, Form } from 'react-bootstrap';
 
 class SignIn extends Component {

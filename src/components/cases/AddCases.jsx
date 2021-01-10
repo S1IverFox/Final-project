@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Row, Form, Col } from 'react-bootstrap';
+import { Modal, Button, Row, Form, Col, FormControl } from 'react-bootstrap';
 import CaseFetches from '../../fetches/CaseFetches.jsx';
 
 class AddCases extends Component {
@@ -45,30 +45,30 @@ class AddCases extends Component {
                 </Form.Group>
                 <Form.Group controlId="color">
                   <Form.Label>Color</Form.Label>
-                  <select name="color">
+                  <FormControl as="select" name="color">
                     <option>Black</option>
                     <option>Red</option>
                     <option>Green</option>
                     <option>Blue</option>
-                  </select>
+                  </FormControl>
                 </Form.Group>
                 <Form.Group controlId="type">
                   <Form.Label>Bicycle type</Form.Label>
-                  <select name="bicycleType">
+                  <FormControl as="select" name="bicycleType">
                     <option value="general">General</option>
                     <option value="sport">Sport</option>
-                  </select>
+                  </FormControl>
                 </Form.Group>
                 <Form.Group controlId="officers">
                   <Form.Label>Officer</Form.Label>
-                  <select name="officer">
+                  <FormControl as="select" name="officer">
                     <option value="">Выбрать</option>
                     {this.props.officers.map((officer) => (
                       <option key={officer._id} value={officer._id}>
                         {officer.firstName + ' ' + officer.lastName}
                       </option>
                     ))}
-                  </select>
+                  </FormControl>
                 </Form.Group>
                 <Form.Group controlId="ownerFullName">
                   <Form.Label>Owner Full Name</Form.Label>

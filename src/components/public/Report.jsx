@@ -35,31 +35,20 @@ class Report extends Component {
           </Form.Group>
           <Form.Group controlId="color">
             <Form.Label>Color</Form.Label>
-            <select name="color">
+            <Form.Control as="select" name="color">
               <option>Black</option>
               <option>Red</option>
               <option>Green</option>
               <option>Blue</option>
-            </select>
+            </Form.Control>
           </Form.Group>
           <Form.Group controlId="type">
             <Form.Label>Bicycle type</Form.Label>
-            <select name="bicycleType">
+            <Form.Control as="select" name="bicycleType">
               <option value="general">General</option>
               <option value="sport">Sport</option>
-            </select>
+            </Form.Control>
           </Form.Group>
-          {/* <Form.Group controlId="officers">
-            <Form.Label>Officer</Form.Label>
-            <select name="officer">
-              <option value="">Выбрать</option>
-              {this.state.officers.map((officer) => (
-                <option key={officer._id} value={officer._id}>
-                  {officer.firstName + ' ' + officer.lastName}
-                </option>
-              ))}
-            </select>
-          </Form.Group> */}
           <Form.Group controlId="ownerFullName">
             <Form.Label>Owner Full Name</Form.Label>
             <Form.Control

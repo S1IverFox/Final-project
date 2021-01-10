@@ -3,7 +3,7 @@ import { Modal, Row, Col, Table, Button, ButtonToolbar } from 'react-bootstrap';
 import Converters from './Converters.jsx';
 import EditCases from './EditCases.jsx';
 
-class Info extends Component {
+class InfoCases extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,9 +13,14 @@ class Info extends Component {
 
   convertDate(createDateStr) {
     const createdDate = new Date(createDateStr);
-    return `${createdDate.getDate()}-${
-      createdDate.getMonth() + 1
-    }-${createdDate.getFullYear()}`;
+    let options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+    return createdDate.toLocaleDateString('ru-RU', options);
   }
 
   render() {
@@ -50,7 +55,7 @@ class Info extends Component {
           </Modal.Header>
           <Modal.Body>
             <Row>
-              <Col sm={1}>
+              <Col sm={6}>
                 <Table>
                   <thead>
                     <tr>
@@ -135,4 +140,4 @@ class Info extends Component {
   }
 }
 
-export default Info;
+export default InfoCases;
