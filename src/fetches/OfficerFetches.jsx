@@ -14,7 +14,16 @@ class OfficerFetches {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => response.json());
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(
+          'Ошибка при получении списка ответсвенных сотрудников! Статус: ' +
+            response.statusText
+        );
+      }
+    });
   }
 
   static getOfficer(officerId) {

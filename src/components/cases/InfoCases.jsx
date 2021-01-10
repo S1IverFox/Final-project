@@ -13,9 +13,14 @@ class Info extends Component {
 
   convertDate(createDateStr) {
     const createdDate = new Date(createDateStr);
-    return `${createdDate.getDate()}-${
-      createdDate.getMonth() + 1
-    }-${createdDate.getFullYear()}`;
+    let options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+    return createdDate.toLocaleDateString('ru-RU', options);
   }
 
   render() {
@@ -50,7 +55,7 @@ class Info extends Component {
           </Modal.Header>
           <Modal.Body>
             <Row>
-              <Col sm={1}>
+              <Col sm={6}>
                 <Table>
                   <thead>
                     <tr>

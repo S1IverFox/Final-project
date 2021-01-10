@@ -1,8 +1,5 @@
-import AddStatement from '../buttons/BtnAddStatement.jsx';
-import BtnCases from '../buttons/BtnCases.jsx';
-import BtnOfficers from '../buttons/BtnOfficers.jsx';
-import Button from '../buttons/Button.jsx';
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 
 class Main extends Component {
   constructor(props) {
@@ -18,13 +15,6 @@ class Main extends Component {
       this.setState({ currentUser: parsedUser });
     }
   }
-  logOut = (event) => {
-    event.preventDefault();
-    // Удаление token из localStorage
-    localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
-    this.setState({ currentUser: {} });
-  };
 
   render() {
     const { currentUser } = this.state;
@@ -34,27 +24,19 @@ class Main extends Component {
           <div>
             {currentUser._id ? (
               <div>
-                <h3>Hello, {currentUser.firstName}</h3>
-                <Button btnText="Выйти" onClickBtn={this.logOut} />
-                <BtnCases />
-                <BtnOfficers />
+                <Button onClick={() => window.location.assign('/cases')}>
+                  Сообщения о кражах
+                </Button>
+                <Button onClick={() => window.location.assign('/officers')}>
+                  Ответственные сотрудники
+                </Button>
               </div>
-            ) : (
-              <div>
-                <h3>Hello</h3>
-                <Button
-                  btnText="Авторизироваться"
-                  onClickBtn={() => window.location.assign('/auth/sign_in')}
-                />
-                <Button
-                  btnText="Зарегистрироваться"
-                  onClickBtn={() => window.location.assign('/auth/sign_up')}
-                />
-              </div>
-            )}
+            ) : null}
           </div>
         </div>
-        <AddStatement />
+        <Button onClick={() => window.location.assign('/public/report')}>
+          Заявить о краже
+        </Button>
       </div>
     );
   }

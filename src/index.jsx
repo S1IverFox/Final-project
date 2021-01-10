@@ -1,5 +1,4 @@
-import './user.css';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -14,12 +13,16 @@ import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import Officers from './components/officers/Officers.jsx';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import Header from './components/main/Header.jsx';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 function App() {
   return (
     <div>
+      <div>
+        <Header />
+      </div>
       <div className="main">
         <Switch>
           <Route path="/" component={Main} exact={true} />

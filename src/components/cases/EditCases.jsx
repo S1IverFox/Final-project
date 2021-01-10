@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Row, Form, Col } from 'react-bootstrap';
+import { Modal, Button, Row, Form, Col, FormControl } from 'react-bootstrap';
 import CaseFetches from '../../fetches/CaseFetches.jsx';
 
 class EditCases extends Component {
@@ -74,12 +74,16 @@ class EditCases extends Component {
                   />
                   <Form.Group>
                     <Form.Label>Color</Form.Label>
-                    <select name="color" defaultValue={this.props.casescolor}>
+                    <FormControl
+                      as="select"
+                      name="color"
+                      defaultValue={this.props.casescolor}
+                    >
                       <option>Black</option>
                       <option>Red</option>
                       <option>Green</option>
                       <option>Blue</option>
-                    </select>
+                    </FormControl>
                   </Form.Group>
                 </Form.Group>
                 <Form.Group>
@@ -92,24 +96,29 @@ class EditCases extends Component {
                 </Form.Group>
                 <Form.Group controlId="officers">
                   <Form.Label>Officer</Form.Label>
-                  <select name="officer" defaultValue={this.props.casesofficer}>
+                  <FormControl
+                    as="select"
+                    name="officer"
+                    defaultValue={this.props.casesofficer}
+                  >
                     <option value="">Выбрать</option>
                     {this.props.officers.map((officer) => (
                       <option key={officer._id} value={officer._id}>
                         {officer.firstName + ' ' + officer.lastName}
                       </option>
                     ))}
-                  </select>
+                  </FormControl>
                 </Form.Group>
                 <Form.Group controlId="type">
                   <Form.Label>Bicycle type</Form.Label>
-                  <select
+                  <FormControl
+                    as="select"
                     name="bicycleType"
                     defaultValue={this.props.casestype}
                   >
                     <option value="general">General</option>
                     <option value="sport">Sport</option>
-                  </select>
+                  </FormControl>
                 </Form.Group>
                 <Form.Group controlId="description">
                   <Form.Label>Description</Form.Label>
@@ -122,7 +131,8 @@ class EditCases extends Component {
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Status</Form.Label>
-                  <select
+                  <FormControl
+                    as="select"
                     onChange={this.handleChange}
                     name="status"
                     defaultValue={this.props.casesstatus}
@@ -132,7 +142,7 @@ class EditCases extends Component {
                     <option className="done" value="done">
                       Done
                     </option>
-                  </select>
+                  </FormControl>
                 </Form.Group>
                 <Form.Group className="result" style={{ display: 'none' }}>
                   <Form.Label>Resolution</Form.Label>
