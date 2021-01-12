@@ -16,7 +16,7 @@ class SignUp extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    if (e.target.password.value.length < 3) {
+    if (e.target.password.value.length < 4) {
       alert('Короткий пароль.');
       return;
     }
@@ -47,7 +47,7 @@ class SignUp extends Component {
     let passwordValid = this.state.passwordValid;
     switch (fieldName) {
       case 'password':
-        passwordValid = value.length >= 3;
+        passwordValid = value.length >= 4;
         fieldValidationErrors.password = passwordValid
           ? ''
           : ' Пароль слишком короткий!';

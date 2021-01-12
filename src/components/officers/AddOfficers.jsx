@@ -5,6 +5,10 @@ import OfficerFetches from '../../fetches/OfficerFetches.jsx';
 class AddOf extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      formErrors: { password: '' },
+      passwordValid: false,
+    };
   }
 
   handleSubmit = (e) => {
@@ -25,6 +29,34 @@ class AddOf extends Component {
       .then(() => e.target.reset())
       .catch((err) => alert(err));
   };
+
+  handleUserInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({ [name]: value }, () => {
+      this.validateField(name, value);
+    });
+  };
+
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let passwordValid = this.state.passwordValid;
+    switch (fieldName) {
+      case 'password':
+        passwordValid = value.length >= 4;
+        fieldValidationErrors.password = passwordValid
+          ? ''
+          : ' Пароль слишком короткий!';
+        break;
+      default:
+        break;
+    }
+
+    this.setState({
+      formErrors: fieldValidationErrors,
+      passwordValid: passwordValid,
+    });
+  }
 
   render() {
     return (
@@ -71,13 +103,14 @@ class AddOf extends Component {
                     placeholder="Фамилия"
                   />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group onChange={this.handleUserInput}>
                   <Form.Label>Пароль</Form.Label>
                   <Form.Control
                     type="password"
                     name="password"
                     required
                     placeholder="Пароль"
+                    isInvalid={!!this.state.formErrors.password}
                   />
                 </Form.Group>
                 <Form.Group>
