@@ -5,19 +5,26 @@ import OfficerFetches from '../../fetches/OfficerFetches.jsx';
 class AddOf extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
+    if (e.target.password.value.length < 3) {
+      alert('Короткий пароль.');
+      return;
+    }
+    if (e.target.repassword.value !== e.target.password.value) {
+      alert('Пароли не сопадают! Попробуете еще раз.');
+      return;
+    }
     OfficerFetches.addOfficer(e.target)
       .then(() => {
         this.props.refresh();
-        alert('succses');
+        alert('Сотрудник добавлен!');
       })
       .then(() => e.target.reset())
       .catch((err) => alert(err));
-  }
+  };
 
   render() {
     return (
@@ -30,7 +37,7 @@ class AddOf extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Add Officer
+            Добавить сотрудника
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -38,7 +45,7 @@ class AddOf extends Component {
             <Col sm={6}>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="email">
-                  <Form.Label>email</Form.Label>
+                  <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
                     name="email"
@@ -47,60 +54,58 @@ class AddOf extends Component {
                   />
                 </Form.Group>
                 <Form.Group controlId="firstName">
-                  <Form.Label>first Name</Form.Label>
+                  <Form.Label>Имя</Form.Label>
                   <Form.Control
                     type="text"
                     name="firstName"
                     required
-                    placeholder="First Name"
+                    placeholder="Имя"
                   />
                 </Form.Group>
                 <Form.Group controlId="lastName">
-                  <Form.Label>last Name</Form.Label>
+                  <Form.Label>Фамилия</Form.Label>
                   <Form.Control
                     type="text"
                     name="lastName"
                     required
-                    placeholder="Last Name"
+                    placeholder="Фамилия"
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>password</Form.Label>
+                  <Form.Label>Пароль</Form.Label>
                   <Form.Control
                     type="password"
                     name="password"
                     required
-                    placeholder="password"
+                    placeholder="Пароль"
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>repassword</Form.Label>
+                  <Form.Label>Подтвердите пароль</Form.Label>
                   <Form.Control
                     type="password"
-                    name="password"
+                    name="repassword"
                     required
-                    placeholder="repassword"
+                    placeholder="Подтвердите пароль"
                   />
                 </Form.Group>
                 <Form.Group controlId="approved">
                   <Form.Switch
-                    label="Approved"
-                    type="switch"
+                    label="Одобрить"
                     name="approved"
-                    type="checkbox"
                     defaultChecked={this.props.officerapproved}
                   />
                 </Form.Group>
 
                 <Form.Group>
-                  <Button type="submit">Add</Button>
+                  <Button type="submit">Добавить</Button>
                 </Form.Group>
               </Form>
             </Col>
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Закрыть</Button>
         </Modal.Footer>
       </Modal>
     );

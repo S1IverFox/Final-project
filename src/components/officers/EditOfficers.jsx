@@ -5,19 +5,26 @@ import OfficerFetches from '../../fetches/OfficerFetches.jsx';
 class EditOffecer extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
+    if (e.target.password.value.length < 3) {
+      alert('Короткий пароль.');
+      return;
+    }
+    if (e.target.repassword.value !== e.target.password.value) {
+      alert('Пароли не сопадают! Попробуете еще раз.');
+      return;
+    }
     const officerId = this.props.officerid;
     OfficerFetches.editOfficer(e.target, officerId)
       .then(() => {
         this.props.refresh();
-        alert('succses');
+        alert('Изменения сохранены!');
       })
       .catch((err) => alert(err));
-  }
+  };
 
   render() {
     return (
@@ -30,7 +37,7 @@ class EditOffecer extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Edit Officer
+            Редактировать
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -38,7 +45,7 @@ class EditOffecer extends Component {
             <Col sm={6}>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
-                  <Form.Label>email</Form.Label>
+                  <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
                     name="email"
@@ -48,65 +55,62 @@ class EditOffecer extends Component {
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>first Name</Form.Label>
+                  <Form.Label>Имя</Form.Label>
                   <Form.Control
                     type="text"
                     name="firstName"
                     required
                     defaultValue={this.props.officerfirstname}
-                    placeholder="First Name"
+                    placeholder="Имя"
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>last Name</Form.Label>
+                  <Form.Label>Фамилия</Form.Label>
                   <Form.Control
                     type="text"
                     name="lastName"
                     required
                     defaultValue={this.props.officerlastname}
-                    placeholder="Last Name"
+                    placeholder="Фамилия"
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>password</Form.Label>
+                  <Form.Label>Пароль</Form.Label>
                   <Form.Control
                     type="password"
                     name="password"
                     required
                     defaultValue={this.props.officerpassword}
-                    placeholder="password"
+                    placeholder="Пароль"
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>repassword</Form.Label>
+                  <Form.Label>Подтвердите пароль</Form.Label>
                   <Form.Control
                     type="password"
-                    name="password"
+                    name="repassword"
                     required
                     defaultValue={this.props.officerpassword}
-                    placeholder="repassword"
+                    placeholder="Подтвердите пароль"
                   />
                 </Form.Group>
-                <Form.Group>
-                  <Form.Label>Approved</Form.Label>
+                <Form.Group controlId="approved">
                   <Form.Switch
-                    label="Approved"
-                    type="switch"
+                    label="Одобрить"
                     name="approved"
-                    type="checkbox"
                     defaultChecked={this.props.officerapproved}
                   />
                 </Form.Group>
 
                 <Form.Group>
-                  <Button type="submit">Update</Button>
+                  <Button type="submit">Сохранить изменения</Button>
                 </Form.Group>
               </Form>
             </Col>
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Закрыть</Button>
         </Modal.Footer>
       </Modal>
     );

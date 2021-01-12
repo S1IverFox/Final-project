@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { Modal, Row, Col, Table, Button, ButtonToolbar } from 'react-bootstrap';
+import {
+  Modal,
+  Row,
+  Col,
+  Table,
+  Button,
+  ButtonToolbar,
+  Form,
+} from 'react-bootstrap';
 import Converters from './Converters.jsx';
 import EditCases from './EditCases.jsx';
 
@@ -51,18 +59,20 @@ class InfoCases extends Component {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">Info</Modal.Title>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Детальная страница велосипеда
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Row>
-              <Col sm={6}>
-                <Table>
+              <Col lg={12}>
+                <Table size="lg">
                   <thead>
                     <tr>
-                      <th>License number</th>
+                      {/* <th>License number</th>
                       <th>Full Name </th>
                       <th>Color</th>
-                      <th>Date</th>
+                      <th>Date</th> */}
                       <th>Officer</th>
                       <th>Bicycle type</th>
                       <th>Description</th>
@@ -74,10 +84,10 @@ class InfoCases extends Component {
                   </thead>
                   <tbody>
                     <tr key={casesid}>
-                      <td>{caseslicensenumber}</td>
+                      {/* <td>{caseslicensenumber}</td>
                       <td>{casesownerfullname}</td>
                       <td>{casescolor}</td>
-                      <td>{this.convertDate(casesdate)}</td>
+                      <td>{this.convertDate(casesdate)}</td> */}
                       <td>{officername}</td>
                       <td>{casestype}</td>
                       <td>{casesdescription}</td>
@@ -103,6 +113,7 @@ class InfoCases extends Component {
                                 casesofficer: casesofficer,
                                 casestype: casestype,
                                 casesresolution: casesresolution,
+                                officername: officername,
                               })
                             }
                           >
@@ -132,7 +143,6 @@ class InfoCases extends Component {
           casesdescription={casesdescription}
           casesofficer={casesofficer}
           casestype={casestype}
-          officers={officers}
           refresh={this.props.refresh}
         />
       </div>

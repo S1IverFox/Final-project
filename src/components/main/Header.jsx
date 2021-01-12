@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Form, Nav, Navbar, Row } from 'react-bootstrap';
+import { Button, Form, Nav, Navbar } from 'react-bootstrap';
 import { checkUser } from './CheckUser.jsx';
 
 class Header extends Component {
@@ -29,27 +29,28 @@ class Header extends Component {
       <div>
         <Navbar bg="light" expand="lg">
           <Navbar.Brand href="/">Logo</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto"></Nav>
             <Form inline>
               {currentUser._id ? (
-                <Form.Group controlId="user">
+                <div>
                   <h5>{currentUser.firstName}</h5>
                   <Button onClick={this.logOut}>Выйти</Button>
-                </Form.Group>
+                </div>
               ) : (
-                <Form.Group>
+                <div>
                   <Button
                     onClick={() => window.location.assign('/auth/sign_in')}
                   >
                     Авторизироваться
-                  </Button>
+                  </Button>{' '}
                   <Button
                     onClick={() => window.location.assign('/auth/sign_up')}
                   >
                     Зарегистрироваться
                   </Button>
-                </Form.Group>
+                </div>
               )}
             </Form>
           </Navbar.Collapse>

@@ -14,7 +14,7 @@ class Report extends Component {
     e.preventDefault();
     ReportFetches.addReport(e.target)
       .then(() => {
-        alert('succses');
+        alert('Заявление добавлено!');
       })
       .then(() => e.target.reset());
   }
@@ -22,52 +22,52 @@ class Report extends Component {
   render() {
     return (
       <div>
-        <h3>Report</h3>
+        <h3>Заявление</h3>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="licenseNumber">
-            <Form.Label>License Number</Form.Label>
+            <Form.Label>Лицензионный номер</Form.Label>
             <Form.Control
               type="text"
               name="licenseNumber"
               required
-              placeholder="licenseNumber"
+              placeholder="Лицензионный номер"
             />
           </Form.Group>
           <Form.Group controlId="color">
-            <Form.Label>Color</Form.Label>
+            <Form.Label>Цвет велосипеда</Form.Label>
             <Form.Control as="select" name="color">
-              <option>Black</option>
-              <option>Red</option>
-              <option>Green</option>
-              <option>Blue</option>
+              <option>Черный</option>
+              <option>Красный</option>
+              <option>Зеленый</option>
+              <option>Синий</option>
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="type">
-            <Form.Label>Bicycle type</Form.Label>
+            <Form.Label>Тип велосипеда</Form.Label>
             <Form.Control as="select" name="bicycleType">
-              <option value="general">General</option>
-              <option value="sport">Sport</option>
+              <option value="general">Прогулочный</option>
+              <option value="sport">Спортивный</option>
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="ownerFullName">
-            <Form.Label>Owner Full Name</Form.Label>
+            <Form.Label>Имя владельца</Form.Label>
             <Form.Control
               type="text"
               name="ownerFullName"
               required
-              placeholder="ownerFullName"
+              placeholder="Имя владельца"
             />
           </Form.Group>
           <Form.Group controlId="description">
-            <Form.Label>Description</Form.Label>
+            <Form.Label>Описание</Form.Label>
             <Form.Control
               type="text"
               name="description"
-              placeholder="description"
+              placeholder="Описание"
             />
           </Form.Group>
           <Form.Group controlId="createdAt">
-            <Form.Label>Date</Form.Label>
+            <Form.Label>Дата пропажи</Form.Label>
             <Form.Control
               type="date"
               name="caseDate"
@@ -75,9 +75,18 @@ class Report extends Component {
               defaultValue={new Date().toISOString().substr(0, 10)}
             />
           </Form.Group>
+          <Form.Group>
+            <Form.Label>ID</Form.Label>
+            <Form.Control
+              type="text"
+              name="clientId"
+              placeholder="ID"
+              required
+            />
+          </Form.Group>
 
           <Form.Group>
-            <Button type="submit">Add</Button>
+            <Button type="submit">Добавить</Button>
           </Form.Group>
         </Form>
       </div>

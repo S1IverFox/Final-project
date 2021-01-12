@@ -2,13 +2,13 @@ class Converters {
   static toReadableStatus(status) {
     switch (status) {
       case 'new':
-        return 'New';
+        return 'Новое';
       case 'in_progress':
-        return 'In progress';
+        return 'В процессе';
       case 'done':
-        return 'Done';
+        return 'Выполнено';
       default:
-        return 'Unknown status';
+        return 'Неизвестный статус';
     }
   }
 }

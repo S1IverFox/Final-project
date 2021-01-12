@@ -16,11 +16,11 @@ class EditCases extends Component {
       e.target.status.value == 'done' &&
       e.target.resolution.value.length == 0
     ) {
-      alert('Error! Status done but resolution is empty!');
+      alert('Пожалуйста, введите завершающий комментарий');
     } else {
       CaseFetches.editCase(e.target, caseId).then(() => {
         this.props.refresh();
-        alert('succses');
+        alert('Изменения сохранены!');
       });
     }
   }
@@ -46,7 +46,7 @@ class EditCases extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Edit Cases
+            Редактировать
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -54,40 +54,40 @@ class EditCases extends Component {
             <Col sm={6}>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
-                  <Form.Label>License Number</Form.Label>
+                  <Form.Label>Лицензионный номер</Form.Label>
                   <Form.Control
                     type="text"
                     name="licenseNumber"
                     required
                     defaultValue={this.props.caseslicensenumber}
-                    placeholder="licenseNumber"
+                    placeholder="Лицензионный номер"
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Full Name</Form.Label>
+                  <Form.Label>Имя владельца</Form.Label>
                   <Form.Control
                     type="text"
                     name="ownerFullName"
                     required
                     defaultValue={this.props.casesownerfullname}
-                    placeholder="ownerFullName"
+                    placeholder="Имя владельца"
                   />
                   <Form.Group>
-                    <Form.Label>Color</Form.Label>
+                    <Form.Label>Цвет велосипеда</Form.Label>
                     <FormControl
                       as="select"
                       name="color"
                       defaultValue={this.props.casescolor}
                     >
-                      <option>Black</option>
-                      <option>Red</option>
-                      <option>Green</option>
-                      <option>Blue</option>
+                      <option>Черный</option>
+                      <option>Красный</option>
+                      <option>Зеленый</option>
+                      <option>Синий</option>
                     </FormControl>
                   </Form.Group>
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Date</Form.Label>
+                  <Form.Label>Дата пропажи</Form.Label>
                   <Form.Control
                     type="date"
                     name="caseDate"
@@ -95,7 +95,7 @@ class EditCases extends Component {
                   />
                 </Form.Group>
                 <Form.Group controlId="officers">
-                  <Form.Label>Officer</Form.Label>
+                  <Form.Label>Ответсвенный сотрудник</Form.Label>
                   <FormControl
                     as="select"
                     name="officer"
@@ -110,58 +110,59 @@ class EditCases extends Component {
                   </FormControl>
                 </Form.Group>
                 <Form.Group controlId="type">
-                  <Form.Label>Bicycle type</Form.Label>
+                  <Form.Label>Тип велосипеда</Form.Label>
                   <FormControl
                     as="select"
                     name="bicycleType"
                     defaultValue={this.props.casestype}
                   >
-                    <option value="general">General</option>
-                    <option value="sport">Sport</option>
+                    <option value="general">Прогулочный</option>
+                    <option value="sport">Спортивный</option>
                   </FormControl>
                 </Form.Group>
                 <Form.Group controlId="description">
-                  <Form.Label>Description</Form.Label>
+                  <Form.Label>Описание</Form.Label>
                   <Form.Control
                     type="text"
                     name="description"
-                    placeholder="description"
+                    placeholder="Описание"
                     defaultValue={this.props.casesdescription}
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Status</Form.Label>
-                  <FormControl
+                  <Form.Label>Статус</Form.Label>
+                  <Form.Control
                     as="select"
                     onChange={this.handleChange}
                     name="status"
                     defaultValue={this.props.casesstatus}
                   >
-                    <option value="new">New</option>
-                    <option value="in_progress">In progress</option>
+                    <option value="new">Новое</option>
+                    <option value="in_progress">В процессе</option>
                     <option className="done" value="done">
-                      Done
+                      Выполнено
                     </option>
-                  </FormControl>
+                  </Form.Control>
                 </Form.Group>
                 <Form.Group className="result" style={{ display: 'none' }}>
-                  <Form.Label>Resolution</Form.Label>
-                  <input
+                  <Form.Label>Завершающий комментарий</Form.Label>
+                  <Form.Control
+                    type="text"
                     name="resolution"
-                    placeholder="resolution"
+                    placeholder="Завершающий комментарий"
                     defaultValue={this.props.casesresolution}
-                  ></input>
+                  />
                 </Form.Group>
 
                 <Form.Group>
-                  <Button type="submit">Update</Button>
+                  <Button type="submit">Сохранить</Button>
                 </Form.Group>
               </Form>
             </Col>
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Закрыть</Button>
         </Modal.Footer>
       </Modal>
     );

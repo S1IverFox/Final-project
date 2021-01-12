@@ -17,7 +17,7 @@ class ReportFetches {
         status: 'new',
         type: reportItem.bicycleType.value,
         description: reportItem.description.value,
-        clientId: 'a9432bbe73645c1825a4c426db59f47d',
+        clientId: reportItem.clientId.value,
       }),
     }).then((response) => response.json());
   }

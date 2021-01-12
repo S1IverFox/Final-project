@@ -34,7 +34,7 @@ class Main extends Component {
           </div>
         </div>
         <Button onClick={() => window.location.assign('/public/report')}>
-          Заявить о краже
+          Сообщить о краже
         </Button>
       </div>
     );

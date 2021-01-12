@@ -33,14 +33,14 @@ class Cases extends Component {
   }
 
   deleteCase(casesid) {
-    if (confirm('Are you sure?')) {
+    if (confirm('Вы уверены?')) {
       CaseFetches.deleteCase(casesid)
         .then((response) => {
           if (response.ok) {
-            alert('succsess');
+            alert('Заявление удалено!');
             this.refreshList();
           } else {
-            alert('can not delete case with id:' + casesid);
+            alert('Невозможно удалить заявление с таким ID:' + casesid);
           }
         })
         .catch((err) => console.log(err));
@@ -86,36 +86,34 @@ class Cases extends Component {
       casestype,
       officers,
       officername,
+      casesofficer,
     } = this.state;
     let addModalClose = () => this.setState({ addModalShow: false });
     let infoModalClose = () => this.setState({ infoModalShow: false });
 
     return (
       <div>
-        <h3>Cases</h3>
-        <Table striped bordered hover>
+        <h3>Украденные велосипеды</h3>
+        <Table striped bordered hover variant="dark">
           <thead>
             <tr>
-              <th>License number</th>
-              <th>Full Name</th>
-              <th>Status</th>
-              <th>Option</th>
+              <th>Лицензионный номер</th>
+              <th>Имя владельца</th>
+              <th>Цвет велосипеда</th>
+              <th>Статус</th>
             </tr>
           </thead>
           <tbody>
             {casess.map((caseItem) => (
               <tr key={caseItem._id}>
-                {/* {console.log(caseItem)} */}
                 <td>{caseItem.licenseNumber}</td>
                 <td>{caseItem.ownerFullName}</td>
+                <td>{caseItem.color}</td>
                 <td>{Converters.toReadableStatus(caseItem.status)}</td>
                 <td>
                   <ButtonToolbar>
-                    <Button onClick={() => this.deleteCase(caseItem._id)}>
-                      Delete
-                    </Button>
-
                     <Button
+                      variant="outline-info"
                       onClick={() => {
                         this.getOfficer(caseItem.officer);
                         this.setState({
@@ -131,10 +129,17 @@ class Cases extends Component {
                           casesresolution: caseItem.resolution,
                           casesdescription: caseItem.description,
                           casestype: caseItem.type,
+                          casesofficer: caseItem.officer,
                         });
                       }}
                     >
-                      Info
+                      Подробная информация
+                    </Button>
+                    <Button
+                      onClick={() => this.deleteCase(caseItem._id)}
+                      variant="outline-danger"
+                    >
+                      Удалить
                     </Button>
                   </ButtonToolbar>
                 </td>
@@ -144,7 +149,7 @@ class Cases extends Component {
         </Table>
         <ButtonToolbar>
           <Button onClick={() => this.setState({ addModalShow: true })}>
-            Add case
+            Сообщить о краже
           </Button>
         </ButtonToolbar>
         <AddCases
@@ -170,6 +175,7 @@ class Cases extends Component {
           casesdate={casesdate}
           officers={officers}
           refresh={this.refreshList}
+          casesofficer={casesofficer}
         />
       </div>
     );

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FormErrors } from './FormErrors.jsx';
 import SignFetches from '../../fetches/SignFetches.jsx';
 import { Button, Form } from 'react-bootstrap';
 
@@ -13,11 +12,14 @@ class SignUp extends Component {
     clientId: '',
     formErrors: { password: '' },
     passwordValid: false,
-    formValid: false,
   };
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
+    if (e.target.password.value.length < 3) {
+      alert('Короткий пароль.');
+      return;
+    }
     if (e.target.repassword.value !== e.target.password.value) {
       alert('Пароли не сопадают! Попробуете еще раз.');
       return;
@@ -30,7 +32,7 @@ class SignUp extends Component {
       .catch((reason) => {
         alert(reason);
       });
-  }
+  };
 
   handleUserInput = (e) => {
     const name = e.target.name;
@@ -46,32 +48,23 @@ class SignUp extends Component {
     switch (fieldName) {
       case 'password':
         passwordValid = value.length >= 3;
-        fieldValidationErrors.password = passwordValid ? '' : ' is too short';
+        fieldValidationErrors.password = passwordValid
+          ? ''
+          : ' Пароль слишком короткий!';
         break;
       default:
         break;
     }
 
-    this.setState(
-      {
-        formErrors: fieldValidationErrors,
-        passwordValid: passwordValid,
-      },
-      this.validateForm()
-    );
-  }
-  validateForm() {
     this.setState({
-      formValid: this.state.passwordValid,
+      formErrors: fieldValidationErrors,
+      passwordValid: passwordValid,
     });
   }
 
   render() {
     return (
       <div>
-        <div>
-          <FormErrors formErrors={this.state.formErrors} />
-        </div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label>Email</Form.Label>
@@ -87,25 +80,29 @@ class SignUp extends Component {
             <Form.Control
               type="password"
               name="password"
-              placeholder="password"
+              placeholder="Пароль"
+              required
+              isInvalid={!!this.state.formErrors.password}
+            />
+            <Form.Control.Feedback type="invalid">
+              {this.state.formErrors.password}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Повторите пароль</Form.Label>
+            <Form.Control
+              type="password"
+              name="repassword"
+              placeholder="Повторите пароль"
               required
             />
-            <Form.Group>
-              <Form.Label>Повторите пароль</Form.Label>
-              <Form.Control
-                type="password"
-                name="repassword"
-                placeholder="repassword"
-                required
-              />
-            </Form.Group>
           </Form.Group>
           <Form.Group>
             <Form.Label>Имя</Form.Label>
             <Form.Control
               type="text"
               name="firstName"
-              placeholder="First name"
+              placeholder="Имя"
               required
             />
           </Form.Group>
@@ -114,7 +111,7 @@ class SignUp extends Component {
             <Form.Control
               type="text"
               name="lastName"
-              placeholder="Last name"
+              placeholder="Фамилия"
               required
             />
           </Form.Group>
@@ -123,7 +120,7 @@ class SignUp extends Component {
             <Form.Control
               type="text"
               name="clientId"
-              placeholder="ClientId"
+              placeholder="ID"
               required
             />
           </Form.Group>

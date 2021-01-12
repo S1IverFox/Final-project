@@ -30,7 +30,9 @@ class Info extends Component {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">Info</Modal.Title>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Детальная страница сотрудника
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Row>
@@ -38,11 +40,11 @@ class Info extends Component {
                 <Table>
                   <thead>
                     <tr>
-                      <th>id</th>
-                      <th>First Name </th>
-                      <th>Last Name</th>
+                      <th>ID</th>
+                      <th>Имя</th>
+                      <th>Фамилия</th>
                       <th>Email</th>
-                      <th>Approved</th>
+                      <th>Одобрение</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -73,7 +75,7 @@ class Info extends Component {
                               });
                             }}
                           >
-                            Edit
+                            Редактировать
                           </Button>
                         </ButtonToolbar>
                       </td>

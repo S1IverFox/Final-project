@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
+import { Form, Table } from 'react-bootstrap';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 import OfficerFetches from '../../fetches/OfficerFetches.jsx';
 import AddOf from './AddOfficers.jsx';
@@ -29,14 +29,14 @@ class Officers extends Component {
   }
 
   deleteOfficer(officerId) {
-    if (confirm('Are you sure?')) {
+    if (confirm('Вы уверены?')) {
       OfficerFetches.deleteOfficer(officerId)
         .then((response) => {
           if (response.ok) {
-            alert('succsess');
+            alert('Сотрудник удален');
             this.refreshList();
           } else {
-            alert('can not delete officer with id:' + officerId);
+            alert('Невозможно удалить сотрудника с таким ID:' + officerId);
           }
         })
         .catch((err) => console.log(err));
@@ -46,7 +46,7 @@ class Officers extends Component {
   updateApproveStatus(officer) {
     OfficerFetches.updateApproveStatus(officer).then(() => {
       this.refreshList();
-      alert('succses');
+      alert('Одобрено');
     });
   }
 
@@ -65,15 +65,14 @@ class Officers extends Component {
 
     return (
       <div>
-        <h3>Officers</h3>
+        <h3>Ответсвенные сотрудники</h3>
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Approved</th>
+              <th>Имя</th>
+              <th>Фамилия</th>
+              <th>Одобрение</th>
               <th></th>
-              <th>Option</th>
             </tr>
           </thead>
           <tbody>
@@ -87,24 +86,18 @@ class Officers extends Component {
                     checked={officer.approved}
                     disabled
                   ></input>
-                </td>
-                <td>
                   {officer.approved ? (
                     <Button onClick={() => this.updateApproveStatus(officer)}>
-                      Unapprove
+                      Снять одобрение
                     </Button>
                   ) : (
                     <Button onClick={() => this.updateApproveStatus(officer)}>
-                      Approve
+                      Одобрить
                     </Button>
                   )}
                 </td>
                 <td>
                   <ButtonToolbar>
-                    <Button onClick={() => this.deleteOfficer(officer._id)}>
-                      Delete
-                    </Button>
-
                     <Button
                       onClick={() =>
                         this.setState({
@@ -118,7 +111,10 @@ class Officers extends Component {
                         })
                       }
                     >
-                      Info
+                      Подробная информация
+                    </Button>
+                    <Button onClick={() => this.deleteOfficer(officer._id)}>
+                      Удалить
                     </Button>
                   </ButtonToolbar>
                 </td>
@@ -128,7 +124,7 @@ class Officers extends Component {
         </Table>
         <ButtonToolbar>
           <Button onClick={() => this.setState({ addModalShow: true })}>
-            Add officer
+            Добавить сотрудника
           </Button>
         </ButtonToolbar>
         <AddOf
