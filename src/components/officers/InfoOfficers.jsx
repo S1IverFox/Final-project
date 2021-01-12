@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Row, Col, Table, ButtonToolbar } from 'react-bootstrap';
+import { Modal, Button, Row, Col, Form, ButtonToolbar } from 'react-bootstrap';
 import EditOfficers from './EditOfficers.jsx';
 
 class Info extends Component {
@@ -36,52 +36,80 @@ class Info extends Component {
           </Modal.Header>
           <Modal.Body>
             <Row>
-              <Col sm={6}>
-                <Table>
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Имя</th>
-                      <th>Фамилия</th>
-                      <th>Email</th>
-                      <th>Одобрение</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr key={officerid}>
-                      <td>{officerid}</td>
-                      <td>{officerfirstname}</td>
-                      <td>{officerlastname}</td>
-                      <td>{officeremail}</td>
-                      <td>
-                        <input
-                          type="checkbox"
-                          checked={officerapproved}
-                          disabled
-                        ></input>
-                      </td>
-                      <td>
-                        <ButtonToolbar>
-                          <Button
-                            onClick={() => {
-                              this.setState({
-                                editModalShow: true,
-                                officerid: officerid,
-                                officeremail: officeremail,
-                                officerfirstname: officerfirstname,
-                                officerlastname: officerlastname,
-                                officerpassword: officerpassword,
-                                officerapproved: officerapproved,
-                              });
-                            }}
-                          >
-                            Редактировать
-                          </Button>
-                        </ButtonToolbar>
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
+              <Col sm={12}>
+                <Form>
+                  <Form.Group controlId="id">
+                    <Form.Label>ID</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="officerid"
+                      required
+                      placeholder="ID"
+                      defaultValue={officerid}
+                      disabled
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="firstName">
+                    <Form.Label>Имя</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="firstName"
+                      required
+                      placeholder="Имя"
+                      defaultValue={officerfirstname}
+                      disabled
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="lastName">
+                    <Form.Label>Фамилия</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="lastName"
+                      required
+                      placeholder="Фамилия"
+                      defaultValue={officerlastname}
+                      disabled
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="email">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="email"
+                      defaultValue={officeremail}
+                      disabled
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="approved">
+                    <Form.Switch
+                      label="Одобрить"
+                      name="approved"
+                      defaultChecked={officerapproved}
+                      disabled
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <ButtonToolbar>
+                      <Button
+                        onClick={() => {
+                          this.setState({
+                            editModalShow: true,
+                            officerid: officerid,
+                            officeremail: officeremail,
+                            officerfirstname: officerfirstname,
+                            officerlastname: officerlastname,
+                            officerpassword: officerpassword,
+                            officerapproved: officerapproved,
+                          });
+                        }}
+                      >
+                        Редактировать
+                      </Button>
+                    </ButtonToolbar>
+                  </Form.Group>
+                </Form>
               </Col>
             </Row>
           </Modal.Body>

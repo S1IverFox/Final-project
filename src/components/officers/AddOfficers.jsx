@@ -42,7 +42,7 @@ class AddOf extends Component {
         </Modal.Header>
         <Modal.Body>
           <Row>
-            <Col sm={6}>
+            <Col sm={12}>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="email">
                   <Form.Label>Email</Form.Label>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Nav, Navbar } from 'react-bootstrap';
+import SignIn from '../auth/SignIn.jsx';
 import { checkUser } from './CheckUser.jsx';
 
 class Header extends Component {
@@ -7,6 +8,7 @@ class Header extends Component {
     super(props);
     this.state = {
       currentUser: {},
+      authModalShow: false,
     };
   }
 
@@ -25,6 +27,7 @@ class Header extends Component {
 
   render() {
     const { currentUser } = this.state;
+    let authModalClose = () => this.setState({ authModalShow: false });
     return (
       <div>
         <Navbar bg="light" expand="lg">
@@ -41,7 +44,7 @@ class Header extends Component {
               ) : (
                 <div>
                   <Button
-                    onClick={() => window.location.assign('/auth/sign_in')}
+                    onClick={() => this.setState({ authModalShow: true })}
                   >
                     Авторизироваться
                   </Button>{' '}
@@ -55,6 +58,7 @@ class Header extends Component {
             </Form>
           </Navbar.Collapse>
         </Navbar>
+        <SignIn show={this.state.authModalShow} onHide={authModalClose} />
       </div>
     );
   }

@@ -24,7 +24,7 @@ class Main extends Component {
             {currentUser._id ? (
               <div>
                 <Button onClick={() => window.location.assign('/cases')}>
-                  Сообщения о кражах
+                  Украденные велосипеды
                 </Button>
                 <Button onClick={() => window.location.assign('/officers')}>
                   Ответственные сотрудники

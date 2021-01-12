@@ -46,7 +46,7 @@ class CaseFetches {
         date: caseItem.caseDate.value,
         status: 'new',
         type: caseItem.bicycleType.value,
-        officer: off,
+        officer: caseItem.officer.value,
         description: caseItem.description.value,
       }),
     }).then((response) => response.json());
@@ -71,7 +71,8 @@ class CaseFetches {
         date: caseItem.caseDate.value,
         resolution: caseItem.resolution.value,
         type: caseItem.bicycleType.value,
-        officer: off,
+        officer: caseItem.officer.value,
+        // officer: off,
         description: caseItem.description.value,
       }),
     }).then((response) => response.json());

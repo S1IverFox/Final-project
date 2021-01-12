@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Modal, Button, Row, Form, Col, FormControl } from 'react-bootstrap';
+import { Modal, Button, Row, Form, Col } from 'react-bootstrap';
 import CaseFetches from '../../fetches/CaseFetches.jsx';
 
 class EditCases extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     const caseId = this.props.casesid;
     if (
@@ -23,9 +21,9 @@ class EditCases extends Component {
         alert('Изменения сохранены!');
       });
     }
-  }
+  };
 
-  handleChange(e) {
+  handleChange = (e) => {
     const result = document.querySelector('.result');
     if (e.target.value == 'done') {
       result.style.display = 'block';
@@ -33,7 +31,7 @@ class EditCases extends Component {
     } else {
       result.style.display = 'none';
     }
-  }
+  };
 
   render() {
     return (
@@ -51,7 +49,7 @@ class EditCases extends Component {
         </Modal.Header>
         <Modal.Body>
           <Row>
-            <Col sm={6}>
+            <Col sm={12}>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                   <Form.Label>Лицензионный номер</Form.Label>
@@ -74,7 +72,7 @@ class EditCases extends Component {
                   />
                   <Form.Group>
                     <Form.Label>Цвет велосипеда</Form.Label>
-                    <FormControl
+                    <Form.Control
                       as="select"
                       name="color"
                       defaultValue={this.props.casescolor}
@@ -83,7 +81,7 @@ class EditCases extends Component {
                       <option>Красный</option>
                       <option>Зеленый</option>
                       <option>Синий</option>
-                    </FormControl>
+                    </Form.Control>
                   </Form.Group>
                 </Form.Group>
                 <Form.Group>
@@ -96,7 +94,7 @@ class EditCases extends Component {
                 </Form.Group>
                 <Form.Group controlId="officers">
                   <Form.Label>Ответсвенный сотрудник</Form.Label>
-                  <FormControl
+                  <Form.Control
                     as="select"
                     name="officer"
                     defaultValue={this.props.casesofficer}
@@ -107,18 +105,18 @@ class EditCases extends Component {
                         {officer.firstName + ' ' + officer.lastName}
                       </option>
                     ))}
-                  </FormControl>
+                  </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="type">
                   <Form.Label>Тип велосипеда</Form.Label>
-                  <FormControl
+                  <Form.Control
                     as="select"
                     name="bicycleType"
                     defaultValue={this.props.casestype}
                   >
                     <option value="general">Прогулочный</option>
                     <option value="sport">Спортивный</option>
-                  </FormControl>
+                  </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="description">
                   <Form.Label>Описание</Form.Label>

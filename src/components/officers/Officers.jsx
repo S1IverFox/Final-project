@@ -46,7 +46,7 @@ class Officers extends Component {
   updateApproveStatus(officer) {
     OfficerFetches.updateApproveStatus(officer).then(() => {
       this.refreshList();
-      alert('Одобрено');
+      alert('Одобрение изменено!');
     });
   }
 

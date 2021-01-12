@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Modal,
-  Row,
-  Col,
-  Table,
-  Button,
-  ButtonToolbar,
-  Form,
-} from 'react-bootstrap';
+import { Modal, Row, Col, Button, ButtonToolbar, Form } from 'react-bootstrap';
 import Converters from './Converters.jsx';
 import EditCases from './EditCases.jsx';
 
@@ -41,7 +33,7 @@ class InfoCases extends Component {
       casescreatedat,
       casesresolution,
       casesdescription,
-      officername,
+      // officername,
       casestype,
       casesupdatedat,
       casesdate,
@@ -66,64 +58,146 @@ class InfoCases extends Component {
           <Modal.Body>
             <Row>
               <Col lg={12}>
-                <Table size="lg">
-                  <thead>
-                    <tr>
-                      {/* <th>License number</th>
-                      <th>Full Name </th>
-                      <th>Color</th>
-                      <th>Date</th> */}
-                      <th>Officer</th>
-                      <th>Bicycle type</th>
-                      <th>Description</th>
-                      <th>Created</th>
-                      <th>Updated</th>
-                      <th>Status</th>
-                      <th>Resolution</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr key={casesid}>
-                      {/* <td>{caseslicensenumber}</td>
-                      <td>{casesownerfullname}</td>
-                      <td>{casescolor}</td>
-                      <td>{this.convertDate(casesdate)}</td> */}
-                      <td>{officername}</td>
-                      <td>{casestype}</td>
-                      <td>{casesdescription}</td>
-                      <td>{this.convertDate(casescreatedat)}</td>
-                      <td>{this.convertDate(casesupdatedat)}</td>
-                      <td>{Converters.toReadableStatus(casesstatus)}</td>
-                      <td>{casesresolution}</td>
-                      <td>
-                        <ButtonToolbar>
-                          <Button
-                            onClick={() =>
-                              this.setState({
-                                editModalShow: true,
-                                casesid: casesid,
-                                casesownerfullname: casesownerfullname,
-                                caseslicensenumber: caseslicensenumber,
-                                casescolor: casescolor,
-                                casescreatedat: casescreatedat,
-                                casesupdatedat: casesupdatedat,
-                                casesdate: casesdate,
-                                casesstatus: casesstatus,
-                                casesdescription: casesdescription,
-                                casesofficer: casesofficer,
-                                casestype: casestype,
-                                casesresolution: casesresolution,
-                                officername: officername,
-                              })
-                            }
-                          >
-                            Edit
-                          </Button>
-                        </ButtonToolbar>
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Лицензионный номер</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="licenseNumber"
+                      required
+                      disabled
+                      defaultValue={caseslicensenumber}
+                      disabled
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Имя владельца</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="ownerFullName"
+                      required
+                      disabled
+                      defaultValue={casesownerfullname}
+                    />
+                    <Form.Group>
+                      <Form.Label>Цвет велосипеда</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="color"
+                        disabled
+                        defaultValue={casescolor}
+                      />
+                    </Form.Group>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Дата пропажи</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="caseDate"
+                      disabled
+                      defaultValue={this.convertDate(casesdate)}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="officers">
+                    <Form.Label>Ответсвенный сотрудник</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="officer"
+                      disabled
+                      defaultValue={casesofficer}
+                    >
+                      {officers.map((officer) => (
+                        <option key={officer._id} value={officer._id}>
+                          {officer.firstName + ' ' + officer.lastName}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId="type">
+                    <Form.Label>Тип велосипеда</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="bicycleType"
+                      disabled
+                      defaultValue={casestype}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="description">
+                    <Form.Label>Описание</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="description"
+                      placeholder="Описание"
+                      disabled
+                      defaultValue={casesdescription}
+                    />
+                    <Form.Group>
+                      <Form.Label>Дата подачи заявления</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="caseCreatedAt"
+                        disabled
+                        defaultValue={this.convertDate(casescreatedat)}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Дата редактирования</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="caseUpdatedAt"
+                        disabled
+                        defaultValue={this.convertDate(casesupdatedat)}
+                      />
+                    </Form.Group>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Статус</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={this.handleChange}
+                      name="status"
+                      disabled
+                      defaultValue={Converters.toReadableStatus(casesstatus)}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Завершающий комментарий</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="resolution"
+                      placeholder="Завершающий комментарий"
+                      defaultValue={casesresolution}
+                      disabled
+                    />
+                  </Form.Group>
+
+                  <Form.Group>
+                    <ButtonToolbar>
+                      <Button
+                        onClick={() =>
+                          this.setState({
+                            editModalShow: true,
+                            casesid: casesid,
+                            casesownerfullname: casesownerfullname,
+                            caseslicensenumber: caseslicensenumber,
+                            casescolor: casescolor,
+                            casescreatedat: casescreatedat,
+                            casesupdatedat: casesupdatedat,
+                            casesdate: casesdate,
+                            casesstatus: casesstatus,
+                            casesdescription: casesdescription,
+                            casesofficer: casesofficer,
+                            casestype: casestype,
+                            casesresolution: casesresolution,
+                            // officername: officername,
+                          })
+                        }
+                      >
+                        Редактировать
+                      </Button>
+                    </ButtonToolbar>
+                  </Form.Group>
+                </Form>
               </Col>
             </Row>
           </Modal.Body>

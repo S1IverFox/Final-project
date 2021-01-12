@@ -5,10 +5,9 @@ import CaseFetches from '../../fetches/CaseFetches.jsx';
 class AddCases extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     CaseFetches.addCase(e.target)
       .then(() => {
@@ -16,7 +15,7 @@ class AddCases extends Component {
         alert('Заявление добавлено!');
       })
       .then(() => e.target.reset());
-  }
+  };
 
   render() {
     return (
@@ -34,7 +33,7 @@ class AddCases extends Component {
         </Modal.Header>
         <Modal.Body>
           <Row>
-            <Col sm={6}>
+            <Col sm={12}>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="licenseNumber">
                   <Form.Label>Лицензионный номер</Form.Label>

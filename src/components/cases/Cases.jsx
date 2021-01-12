@@ -18,7 +18,6 @@ class Cases extends Component {
       editModalShow: false,
       infoModalShow: false,
     };
-    this.refreshList = this.refreshList.bind(this);
   }
 
   componentDidMount() {
@@ -26,11 +25,11 @@ class Cases extends Component {
     this.getOfficers();
   }
 
-  refreshList() {
+  refreshList = () => {
     CaseFetches.getAllCases().then((data) => {
       this.setState({ casess: data });
     });
-  }
+  };
 
   deleteCase(casesid) {
     if (confirm('Вы уверены?')) {
