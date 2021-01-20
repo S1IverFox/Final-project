@@ -9,11 +9,24 @@ import Cases from './components/cases/Cases.jsx';
 import Officers from './components/officers/Officers.jsx';
 import Header from './components/main/Header.jsx';
 
+const bodyStyle = {
+  display: 'block',
+  margin: '0, auto',
+  maxWidth: '2700px',
+};
+
+const mainStyle = {
+  backgroundColor: '#343a40',
+  margin: '0, auto',
+  height: '800px',
+  padding: '50px',
+};
+
 function App() {
   return (
-    <div>
+    <div style={bodyStyle}>
       <Header />
-      <div className="main">
+      <div style={mainStyle}>
         <Switch>
           <Route path="/" component={Main} exact={true} />
           <Route path="/public/report" component={Report} exact={true} />

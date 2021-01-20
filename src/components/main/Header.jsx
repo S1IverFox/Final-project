@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
 import SignIn from '../auth/SignIn.jsx';
 import { checkUser } from './CheckUser.jsx';
 
@@ -11,6 +11,18 @@ class Header extends Component {
       authModalShow: false,
     };
   }
+
+  headerStyle = {
+    backgroundColor: '#ffc107',
+  };
+  logoStyle = {
+    backgroundImage:
+      'url("https://vk.com/doc34732150_585273286?hash=f912b03d4b4ab58ae7&dl=0f12170d6e26d7d319")',
+    width: '6rem',
+    height: '3.2rem',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  };
 
   componentDidMount() {
     checkUser();
@@ -30,33 +42,45 @@ class Header extends Component {
     let authModalClose = () => this.setState({ authModalShow: false });
     return (
       <div>
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">Logo</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto"></Nav>
-            <Form inline>
-              {currentUser._id ? (
-                <div>
-                  <h5>{currentUser.firstName}</h5>
-                  <Button onClick={this.logOut}>Выйти</Button>
-                </div>
-              ) : (
-                <div>
-                  <Button
-                    onClick={() => this.setState({ authModalShow: true })}
-                  >
-                    Авторизироваться
-                  </Button>{' '}
-                  <Button
-                    onClick={() => window.location.assign('/auth/sign_up')}
-                  >
-                    Зарегистрироваться
-                  </Button>
-                </div>
-              )}
-            </Form>
-          </Navbar.Collapse>
+        <Navbar expand="lg" style={this.headerStyle}>
+          <Container>
+            <Navbar.Brand href="/" style={this.logoStyle}></Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto"></Nav>
+              <Form inline>
+                {currentUser._id ? (
+                  <div style={{ display: 'inline-flex' }}>
+                    <h5
+                      className={'mr-2'}
+                      style={{ color: '#343a40', marginTop: '5px' }}
+                    >
+                      {currentUser.firstName}
+                    </h5>
+                    <Button onClick={this.logOut} variant="outline-dark">
+                      Выйти
+                    </Button>
+                  </div>
+                ) : (
+                  <div>
+                    <Button
+                      className="mr-2"
+                      variant="outline-dark"
+                      onClick={() => this.setState({ authModalShow: true })}
+                    >
+                      Авторизироваться
+                    </Button>
+                    <Button
+                      variant="outline-dark"
+                      onClick={() => window.location.assign('/auth/sign_up')}
+                    >
+                      Зарегистрироваться
+                    </Button>
+                  </div>
+                )}
+              </Form>
+            </Navbar.Collapse>
+          </Container>
         </Navbar>
         <SignIn show={this.state.authModalShow} onHide={authModalClose} />
       </div>

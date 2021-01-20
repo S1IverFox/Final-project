@@ -10,6 +10,7 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js',
   },
+  cache: false,
   module: {
     rules: [
       {
