@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SignFetches from '../../fetches/SignFetches.jsx';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Col, Form } from 'react-bootstrap';
 
 class SignUp extends Component {
   state = {
@@ -64,68 +64,88 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        style={{
+          backgroundColor: '#fff3e1e7',
+          padding: '50px',
+          borderRadius: '5px',
+        }}
+      >
+        <h3 style={{ marginBottom: '2rem' }}>Регистрация</h3>
         <Form onSubmit={this.handleSubmit}>
+          <Form.Row>
+            <Form.Group as={Col}>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                placeholder="email"
+                required
+              />
+            </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label>ID</Form.Label>
+              <Form.Control
+                type="text"
+                name="clientId"
+                placeholder="ID"
+                required
+              />
+            </Form.Group>
+          </Form.Row>
+          <Form.Row>
+            <Form.Group onChange={this.handleUserInput} as={Col}>
+              <Form.Label>Пароль</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                required
+                isInvalid={!!this.state.formErrors.password}
+              />
+              <Form.Control.Feedback type="invalid">
+                {this.state.formErrors.password}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label>Повторите пароль</Form.Label>
+              <Form.Control
+                type="password"
+                name="repassword"
+                placeholder="Повторите пароль"
+                required
+              />
+            </Form.Group>
+          </Form.Row>
+          <Form.Row>
+            <Form.Group as={Col}>
+              <Form.Label>Имя</Form.Label>
+              <Form.Control
+                type="text"
+                name="firstName"
+                placeholder="Имя"
+                required
+              />
+            </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label>Фамилия</Form.Label>
+              <Form.Control
+                type="text"
+                name="lastName"
+                placeholder="Фамилия"
+                required
+              />
+            </Form.Group>
+          </Form.Row>
+
           <Form.Group>
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              placeholder="email"
-              required
-            />
-          </Form.Group>
-          <Form.Group onChange={this.handleUserInput}>
-            <Form.Label>Пароль</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              placeholder="Пароль"
-              required
-              isInvalid={!!this.state.formErrors.password}
-            />
-            <Form.Control.Feedback type="invalid">
-              {this.state.formErrors.password}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Повторите пароль</Form.Label>
-            <Form.Control
-              type="password"
-              name="repassword"
-              placeholder="Повторите пароль"
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Имя</Form.Label>
-            <Form.Control
-              type="text"
-              name="firstName"
-              placeholder="Имя"
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Фамилия</Form.Label>
-            <Form.Control
-              type="text"
-              name="lastName"
-              placeholder="Фамилия"
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>ID</Form.Label>
-            <Form.Control
-              type="text"
-              name="clientId"
-              placeholder="ID"
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Button type="submit">Зарегистрироваться</Button>
+            <Button
+              type="submit"
+              variant="outline-success"
+              style={{ marginTop: '1.5rem' }}
+            >
+              Зарегистрироваться
+            </Button>
           </Form.Group>
         </Form>
       </div>

@@ -91,9 +91,15 @@ class Cases extends Component {
     let infoModalClose = () => this.setState({ infoModalShow: false });
 
     return (
-      <div>
+      <div
+        style={{
+          backgroundColor: '#fff3e1e7',
+          padding: '50px',
+          borderRadius: '5px',
+        }}
+      >
         <h3>Украденные велосипеды</h3>
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>Лицензионный номер</th>
@@ -110,8 +116,9 @@ class Cases extends Component {
                 <td>{caseItem.color}</td>
                 <td>{Converters.toReadableStatus(caseItem.status)}</td>
                 <td>
-                  <ButtonToolbar>
+                  <ButtonToolbar style={{ justifyContent: 'center' }}>
                     <Button
+                      style={{ margin: '5px' }}
                       variant="outline-info"
                       onClick={() => {
                         this.getOfficer(caseItem.officer);
@@ -135,6 +142,7 @@ class Cases extends Component {
                       Подробная информация
                     </Button>
                     <Button
+                      style={{ margin: '5px' }}
                       onClick={() => this.deleteCase(caseItem._id)}
                       variant="outline-danger"
                     >
@@ -147,7 +155,10 @@ class Cases extends Component {
           </tbody>
         </Table>
         <ButtonToolbar>
-          <Button onClick={() => this.setState({ addModalShow: true })}>
+          <Button
+            onClick={() => this.setState({ addModalShow: true })}
+            variant="outline-danger"
+          >
             Сообщить о краже
           </Button>
         </ButtonToolbar>

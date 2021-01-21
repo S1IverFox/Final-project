@@ -18,7 +18,7 @@ const bodyStyle = {
 const mainStyle = {
   backgroundColor: '#343a40',
   margin: '0, auto',
-  height: '800px',
+  minHeight: '800px',
   padding: '50px',
 };
 

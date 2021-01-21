@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SignFetches from '../../fetches/SignFetches.jsx';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Col, Form, Modal } from 'react-bootstrap';
 
 class SignIn extends Component {
   state = {
@@ -15,7 +15,7 @@ class SignIn extends Component {
         localStorage.setItem('token', user.token);
         const userJson = JSON.stringify(user);
         localStorage.setItem('currentUser', userJson);
-        alert(`Добро пожаловать, ${user.firstName}`);
+        alert(`Добро пожаловать, ${user.firstName}!`);
         window.location.assign('/');
       })
       .catch((err) => {
@@ -40,30 +40,35 @@ class SignIn extends Component {
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={this.userLoginFunc}>
-              <Form.Group>
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  required
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Пароль</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  required
-                />
-              </Form.Group>
-
-              <Button type="submit">Войти</Button>
+              <Form.Row>
+                <Form.Group as={Col}>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    placeholder="email"
+                    required
+                  />
+                </Form.Group>
+                <Form.Group as={Col}>
+                  <Form.Label>Пароль</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    required
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Button type="submit" variant="outline-success">
+                Войти
+              </Button>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.props.onHide}>Закрыть</Button>
+            <Button onClick={this.props.onHide} variant="outline-danger">
+              Закрыть
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>

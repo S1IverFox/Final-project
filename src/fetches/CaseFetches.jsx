@@ -54,7 +54,6 @@ class CaseFetches {
 
   static editCase(caseItem, caseId) {
     const token = this.getToken();
-    const off = caseItem.officer.value == '' ? null : caseItem.officer.value;
     return fetch('http://84.201.129.203:8888/api/cases/' + caseId, {
       method: 'PUT',
       headers: {
@@ -72,7 +71,6 @@ class CaseFetches {
         resolution: caseItem.resolution.value,
         type: caseItem.bicycleType.value,
         officer: caseItem.officer.value,
-        // officer: off,
         description: caseItem.description.value,
       }),
     }).then((response) => response.json());

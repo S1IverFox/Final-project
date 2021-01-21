@@ -28,7 +28,7 @@ class Report extends Component {
           borderRadius: '5px',
         }}
       >
-        <h3>Заявление</h3>
+        <h3 style={{ marginBottom: '2rem' }}>Заявление</h3>
         <Form onSubmit={this.handleSubmit}>
           <Form.Row>
             <Form.Group controlId="licenseNumber" as={Col}>
@@ -40,6 +40,17 @@ class Report extends Component {
                 placeholder="Лицензионный номер"
               />
             </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label>ID</Form.Label>
+              <Form.Control
+                type="text"
+                name="clientId"
+                placeholder="ID"
+                required
+              />
+            </Form.Group>
+          </Form.Row>
+          <Form.Row>
             <Form.Group controlId="color" as={Col}>
               <Form.Label>Цвет велосипеда</Form.Label>
               <Form.Control as="select" name="color">
@@ -85,17 +96,13 @@ class Report extends Component {
               placeholder="Описание"
             />
           </Form.Group>
+
           <Form.Group>
-            <Form.Label>ID</Form.Label>
-            <Form.Control
-              type="text"
-              name="clientId"
-              placeholder="ID"
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Button type="submit" variant="outline-success">
+            <Button
+              type="submit"
+              variant="outline-success"
+              style={{ marginTop: '1.5rem' }}
+            >
               Добавить
             </Button>
           </Form.Group>
