@@ -35,83 +35,84 @@ class Info extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Row>
-              <Col sm={12}>
-                <Form>
-                  <Form.Group controlId="id">
-                    <Form.Label>ID</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="officerid"
-                      required
-                      placeholder="ID"
-                      defaultValue={officerid}
-                      disabled
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="firstName">
-                    <Form.Label>Имя</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="firstName"
-                      required
-                      placeholder="Имя"
-                      defaultValue={officerfirstname}
-                      disabled
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="lastName">
-                    <Form.Label>Фамилия</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="lastName"
-                      required
-                      placeholder="Фамилия"
-                      defaultValue={officerlastname}
-                      disabled
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="email"
-                      defaultValue={officeremail}
-                      disabled
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="approved">
-                    <Form.Switch
-                      label="Одобрить"
-                      name="approved"
-                      defaultChecked={officerapproved}
-                      disabled
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <ButtonToolbar>
-                      <Button
-                        onClick={() => {
-                          this.setState({
-                            editModalShow: true,
-                            officerid: officerid,
-                            officeremail: officeremail,
-                            officerfirstname: officerfirstname,
-                            officerlastname: officerlastname,
-                            officerpassword: officerpassword,
-                            officerapproved: officerapproved,
-                          });
-                        }}
-                      >
-                        Редактировать
-                      </Button>
-                    </ButtonToolbar>
-                  </Form.Group>
-                </Form>
-              </Col>
-            </Row>
+            <Form>
+              <Form.Row>
+                <Form.Group controlId="id" as={Col}>
+                  <Form.Label>ID</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="officerid"
+                    required
+                    placeholder="ID"
+                    defaultValue={officerid}
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group controlId="email" as={Col}>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="email"
+                    defaultValue={officeremail}
+                    disabled
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group controlId="firstName" as={Col}>
+                  <Form.Label>Имя</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="firstName"
+                    required
+                    placeholder="Имя"
+                    defaultValue={officerfirstname}
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group controlId="lastName" as={Col}>
+                  <Form.Label>Фамилия</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="lastName"
+                    required
+                    placeholder="Фамилия"
+                    defaultValue={officerlastname}
+                    disabled
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Group controlId="approved">
+                <Form.Switch
+                  label="Одобрить"
+                  name="approved"
+                  defaultChecked={officerapproved}
+                  disabled
+                />
+              </Form.Group>
+              <Form.Group>
+                <ButtonToolbar>
+                  <Button
+                    onClick={() => {
+                      this.setState({
+                        editModalShow: true,
+                        officerid: officerid,
+                        officeremail: officeremail,
+                        officerfirstname: officerfirstname,
+                        officerlastname: officerlastname,
+                        officerpassword: officerpassword,
+                        officerapproved: officerapproved,
+                      });
+                    }}
+                    variant="outline-primary"
+                  >
+                    Редактировать
+                  </Button>
+                </ButtonToolbar>
+              </Form.Group>
+            </Form>
           </Modal.Body>
         </Modal>
         <EditOfficers

@@ -66,6 +66,7 @@ class EditOffecer extends Component {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -73,77 +74,81 @@ class EditOffecer extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row>
-            <Col sm={12}>
-              <Form onSubmit={this.handleSubmit}>
-                <Form.Group>
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    required
-                    defaultValue={this.props.officeremail}
-                    placeholder="email"
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Имя</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="firstName"
-                    required
-                    defaultValue={this.props.officerfirstname}
-                    placeholder="Имя"
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Фамилия</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="lastName"
-                    required
-                    defaultValue={this.props.officerlastname}
-                    placeholder="Фамилия"
-                  />
-                </Form.Group>
-                <Form.Group onChange={this.handleUserInput}>
-                  <Form.Label>Пароль</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    required
-                    defaultValue={this.props.officerpassword}
-                    placeholder="Пароль"
-                    isInvalid={!!this.state.formErrors.password}
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Подтвердите пароль</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="repassword"
-                    required
-                    defaultValue={this.props.officerpassword}
-                    placeholder="Подтвердите пароль"
-                  />
-                </Form.Group>
-                <Form.Group controlId="approved">
-                  <Form.Switch
-                    label="Одобрить"
-                    name="approved"
-                    defaultChecked={this.props.officerapproved}
-                  />
-                </Form.Group>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                required
+                defaultValue={this.props.officeremail}
+                placeholder="email"
+              />
+            </Form.Group>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>Имя</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="firstName"
+                  required
+                  defaultValue={this.props.officerfirstname}
+                  placeholder="Имя"
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Фамилия</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="lastName"
+                  required
+                  defaultValue={this.props.officerlastname}
+                  placeholder="Фамилия"
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group onChange={this.handleUserInput} as={Col}>
+                <Form.Label>Пароль</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  required
+                  defaultValue={this.props.officerpassword}
+                  placeholder="Пароль"
+                  isInvalid={!!this.state.formErrors.password}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Подтвердите пароль</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="repassword"
+                  required
+                  defaultValue={this.props.officerpassword}
+                  placeholder="Подтвердите пароль"
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Group controlId="approved">
+              <Form.Switch
+                label="Одобрить"
+                name="approved"
+                defaultChecked={this.props.officerapproved}
+              />
+            </Form.Group>
 
-                <Form.Group>
-                  <Button type="submit">Сохранить изменения</Button>
-                </Form.Group>
-              </Form>
-            </Col>
-          </Row>
+            <Form.Group>
+              <Button type="submit" variant="outline-success">
+                Сохранить
+              </Button>
+            </Form.Group>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Закрыть</Button>
+          <Button onClick={this.props.onHide} variant="outline-danger">
+            Закрыть
+          </Button>
         </Modal.Footer>
       </Modal>
     );

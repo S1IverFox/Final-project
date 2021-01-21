@@ -66,6 +66,7 @@ class AddOf extends Component {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -73,72 +74,76 @@ class AddOf extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row>
-            <Col sm={12}>
-              <Form onSubmit={this.handleSubmit}>
-                <Form.Group controlId="email">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="email"
-                  />
-                </Form.Group>
-                <Form.Group controlId="firstName">
-                  <Form.Label>Имя</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="firstName"
-                    required
-                    placeholder="Имя"
-                  />
-                </Form.Group>
-                <Form.Group controlId="lastName">
-                  <Form.Label>Фамилия</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="lastName"
-                    required
-                    placeholder="Фамилия"
-                  />
-                </Form.Group>
-                <Form.Group onChange={this.handleUserInput}>
-                  <Form.Label>Пароль</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    required
-                    placeholder="Пароль"
-                    isInvalid={!!this.state.formErrors.password}
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Подтвердите пароль</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="repassword"
-                    required
-                    placeholder="Подтвердите пароль"
-                  />
-                </Form.Group>
-                <Form.Group controlId="approved">
-                  <Form.Switch
-                    label="Одобрить"
-                    name="approved"
-                    defaultChecked={this.props.officerapproved}
-                  />
-                </Form.Group>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                required
+                placeholder="email"
+              />
+            </Form.Group>
+            <Form.Row>
+              <Form.Group controlId="firstName" as={Col}>
+                <Form.Label>Имя</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="firstName"
+                  required
+                  placeholder="Имя"
+                />
+              </Form.Group>
+              <Form.Group controlId="lastName" as={Col}>
+                <Form.Label>Фамилия</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="lastName"
+                  required
+                  placeholder="Фамилия"
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group onChange={this.handleUserInput} as={Col}>
+                <Form.Label>Пароль</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  required
+                  placeholder="Пароль"
+                  isInvalid={!!this.state.formErrors.password}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Подтвердите пароль</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="repassword"
+                  required
+                  placeholder="Подтвердите пароль"
+                />
+              </Form.Group>
+            </Form.Row>
 
-                <Form.Group>
-                  <Button type="submit">Добавить</Button>
-                </Form.Group>
-              </Form>
-            </Col>
-          </Row>
+            <Form.Group controlId="approved">
+              <Form.Switch
+                label="Одобрить"
+                name="approved"
+                defaultChecked={this.props.officerapproved}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Button type="submit" variant="outline-success">
+                Добавить
+              </Button>
+            </Form.Group>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Закрыть</Button>
+          <Button onClick={this.props.onHide} variant="outline-danger">
+            Закрыть
+          </Button>
         </Modal.Footer>
       </Modal>
     );

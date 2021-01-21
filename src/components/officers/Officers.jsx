@@ -64,7 +64,13 @@ class Officers extends Component {
     let infoModalClose = () => this.setState({ infoModalShow: false });
 
     return (
-      <div>
+      <div
+        style={{
+          backgroundColor: '#fff3e1e7',
+          padding: '50px',
+          borderRadius: '5px',
+        }}
+      >
         <h3>Ответсвенные сотрудники</h3>
         <Table striped bordered hover>
           <thead>
@@ -86,19 +92,31 @@ class Officers extends Component {
                     checked={officer.approved}
                     disabled
                   ></input>
-                  {officer.approved ? (
-                    <Button onClick={() => this.updateApproveStatus(officer)}>
-                      Снять одобрение
-                    </Button>
-                  ) : (
-                    <Button onClick={() => this.updateApproveStatus(officer)}>
-                      Одобрить
-                    </Button>
-                  )}
+                  <ButtonToolbar
+                    style={{ marginLeft: '1rem', display: 'inline' }}
+                  >
+                    {officer.approved ? (
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => this.updateApproveStatus(officer)}
+                      >
+                        Снять одобрение
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => this.updateApproveStatus(officer)}
+                      >
+                        Одобрить
+                      </Button>
+                    )}
+                  </ButtonToolbar>
                 </td>
                 <td>
-                  <ButtonToolbar>
+                  <ButtonToolbar style={{ justifyContent: 'center' }}>
                     <Button
+                      style={{ margin: '5px' }}
+                      variant="outline-info"
                       onClick={() =>
                         this.setState({
                           infoModalShow: true,
@@ -113,7 +131,11 @@ class Officers extends Component {
                     >
                       Подробная информация
                     </Button>
-                    <Button onClick={() => this.deleteOfficer(officer._id)}>
+                    <Button
+                      style={{ margin: '5px' }}
+                      variant="outline-danger"
+                      onClick={() => this.deleteOfficer(officer._id)}
+                    >
                       Удалить
                     </Button>
                   </ButtonToolbar>
@@ -123,7 +145,10 @@ class Officers extends Component {
           </tbody>
         </Table>
         <ButtonToolbar>
-          <Button onClick={() => this.setState({ addModalShow: true })}>
+          <Button
+            variant="outline-success"
+            onClick={() => this.setState({ addModalShow: true })}
+          >
             Добавить сотрудника
           </Button>
         </ButtonToolbar>
