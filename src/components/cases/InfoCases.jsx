@@ -23,15 +23,12 @@ class InfoCases extends Component {
     return createdDate.toLocaleDateString('ru-RU', options);
   }
 
-  //для скрытия завершающего комментария
-  // showResolution = (e) => {
-  //   const comment = document.querySelector('.comment');
-  //   if (e.target.defaultValue !== null) {
-  //     comment.style.display = 'block';
-  //   } else {
-  //     comment.style.display = 'none';
-  //   }
-  // };
+  showResolution = () => {
+    const comment = document.querySelector('.comment');
+    if (this.props.casesresolution != '') {
+      comment.style.display = 'block';
+    }
+  };
 
   render() {
     const {
@@ -64,9 +61,7 @@ class InfoCases extends Component {
               Детальная страница велосипеда
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body
-          // onMouseMove={this.showResolution} //для скрытия завершающего комментария
-          >
+          <Modal.Body onMouseEnter={this.showResolution}>
             <Form>
               <Form.Row>
                 <Form.Group as={Col}>
@@ -178,7 +173,7 @@ class InfoCases extends Component {
                   defaultValue={Converters.toReadableStatus(casesstatus)}
                 />
               </Form.Group>
-              <Form.Group className="comment">
+              <Form.Group className="comment" style={{ display: 'none' }}>
                 <Form.Label>Завершающий комментарий</Form.Label>
                 <Form.Control
                   type="text"

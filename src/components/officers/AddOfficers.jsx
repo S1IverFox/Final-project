@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Row, Form, Col } from 'react-bootstrap';
+import { Modal, Button, Form, Col } from 'react-bootstrap';
 import OfficerFetches from '../../fetches/OfficerFetches.jsx';
 
 class AddOf extends Component {

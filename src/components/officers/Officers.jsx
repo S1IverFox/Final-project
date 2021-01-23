@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 import OfficerFetches from '../../fetches/OfficerFetches.jsx';
 import AddOf from './AddOfficers.jsx';

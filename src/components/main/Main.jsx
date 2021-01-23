@@ -20,7 +20,8 @@ class Main extends Component {
     display: 'flex',
     position: 'relative',
     backgroundColor: '#fff3e1e7',
-    padding: '5rem 2rem 6rem 2rem',
+    padding: '5rem 2rem',
+    marginBottom: '0',
   };
 
   sliderStyle = {

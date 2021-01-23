@@ -8,6 +8,7 @@ import Main from './components/main/Main.jsx';
 import Cases from './components/cases/Cases.jsx';
 import Officers from './components/officers/Officers.jsx';
 import Header from './components/main/Header.jsx';
+import Footer from './components/main/Footer.jsx';
 
 const bodyStyle = {
   display: 'block',
@@ -18,7 +19,7 @@ const bodyStyle = {
 const mainStyle = {
   backgroundColor: '#343a40',
   margin: '0, auto',
-  minHeight: '800px',
+  minHeight: '660px',
   padding: '50px',
 };
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/officers" component={Officers} exact={true} />
         </Switch>
       </div>
+      <Footer />
     </div>
   );
 }
