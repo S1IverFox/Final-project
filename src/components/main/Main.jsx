@@ -17,7 +17,7 @@ class Main extends Component {
   }
 
   jumbotronStyle = {
-    display: 'flex',
+    display: 'block',
     position: 'relative',
     backgroundColor: '#fff3e1e7',
     padding: '5rem 2rem',
@@ -33,7 +33,6 @@ class Main extends Component {
 
   blockTextStyle = {
     display: 'block',
-    position: 'absolute',
     paddingLeft: '65%',
     marginLeft: '5%',
     marginRight: '5%',
