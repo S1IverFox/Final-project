@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
 import SignIn from '../auth/SignIn.jsx';
 import { checkUser } from './CheckUser.jsx';
+import logo from '../../img/Logo_2.png';
 
 class Header extends Component {
   constructor(props) {
@@ -16,8 +17,6 @@ class Header extends Component {
     backgroundColor: '#ffc107',
   };
   logoStyle = {
-    backgroundImage:
-      'url("https://vk.com/doc34732150_585273286?hash=f912b03d4b4ab58ae7&dl=0f12170d6e26d7d319")',
     width: '6rem',
     height: '3.2rem',
     backgroundRepeat: 'no-repeat',
@@ -44,7 +43,9 @@ class Header extends Component {
       <div>
         <Navbar expand="lg" style={this.headerStyle}>
           <Container>
-            <Navbar.Brand href="/" style={this.logoStyle}></Navbar.Brand>
+            <a href="/">
+              <img src={logo} style={this.logoStyle} />
+            </a>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto"></Nav>

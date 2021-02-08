@@ -1,12 +1,11 @@
 import React from 'react';
 import { Navbar, Container } from 'react-bootstrap';
+import logo from '../../img/Logo_2.png';
 
 const footerStyle = {
   backgroundColor: '#ffc107',
 };
 const logoStyle = {
-  backgroundImage:
-    'url("https://vk.com/doc34732150_585273286?hash=f912b03d4b4ab58ae7&dl=0f12170d6e26d7d319")',
   transform: 'scale(-1, 1)',
   width: '6rem',
   height: '3.2rem',
@@ -19,7 +18,9 @@ function Footer() {
     <div>
       <Navbar style={footerStyle}>
         <Container>
-          <Navbar.Brand href="/" style={logoStyle}></Navbar.Brand>
+          <a href="/">
+            <img src={logo} style={logoStyle} />
+          </a>
           <span style={{ color: '#343a40' }}>
             2021,{' '}
             <a
